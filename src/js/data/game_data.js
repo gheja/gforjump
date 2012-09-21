@@ -19,3 +19,15 @@ var g_gfx_elements = {
 
 var g_gfx_backgrounds = {
 };
+
+var g_game_objects = [
+	// pos_x, pos_y, gfx_element_id, parameters
+	
+	// first object must be the player
+	[ 16,  50,  1, { can_move: 1, gravity_enabled: 1, width: 8, height: 8 }],
+	
+	[  0,  112, 0 ],
+	[  8,  112, 0 ],
+	[ 16,  112, 0 ],
+	[ 24,  112, 0 ]
+];
