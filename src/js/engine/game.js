@@ -77,19 +77,37 @@ var gGame = {
 	
 	AddGameObject: function(pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters)
 	{
-		var element_parameters = gGfx.GetElementParameters(gfx_element_id);
+		var count_x = 1;
+		var count_y = 1;
 		
-		var obj = new gGameObject(pos_x, pos_y, element_parameters.width, element_parameters.height, gfx_element_id);
-		
-		if (obj_parameters)
+		if (add_parameters)
 		{
-			for (var key in obj_parameters)
-			{
-				obj[key] = obj_parameters[key];
-			}
+			count_x = add_parameters[0];
+			count_y = add_parameters[1];
 		}
 		
-		this.game_objects.push(obj);
+		for (var x=0; x<count_x; x++)
+		{
+			for (var y=0; y<count_y; y++)
+			{
+				var element_parameters = gGfx.GetElementParameters(gfx_element_id);
+				
+				var obj = new gGameObject(pos_x, pos_y, element_parameters.width, element_parameters.height, gfx_element_id);
+				
+				obj.pos_x = pos_x + element_parameters.width * x;
+				obj.pos_y = pos_y + element_parameters.height * y;
+				
+				if (obj_parameters)
+				{
+					for (var key in obj_parameters)
+					{
+						obj[key] = obj_parameters[key];
+					}
+				}
+				
+				this.game_objects.push(obj);
+			}
+		}
 	},
 	
 	Init: function(canvas)
