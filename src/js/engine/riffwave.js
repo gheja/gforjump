@@ -127,3 +127,5 @@ var RIFFWAVE = function(data) {
     if (data instanceof Array) this.Make(data);
 
 }; // end RIFFWAVE
+
+FastBase64.Init();
