@@ -75,7 +75,7 @@ var RIFFWAVE = function(data) {
         sampleRate   : 44100,                  // 24   4    8000, 44100...
         byteRate     : 0,                     // 28   4    SampleRate*NumChannels*BitsPerSample/8
         blockAlign   : 0,                     // 32   2    NumChannels*BitsPerSample/8
-        bitsPerSample: 8,                     // 34   2    8 bits = 8, 16 bits = 16
+        bitsPerSample: 16,                     // 34   2    8 bits = 8, 16 bits = 16
         subChunk2Id  : [0x64,0x61,0x74,0x61], // 36   4    "data" = 0x64617461
         subChunk2Size: 0                      // 40   4    data size = NumSamples*NumChannels*BitsPerSample/8
     };
