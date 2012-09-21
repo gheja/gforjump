@@ -17,11 +17,40 @@ var gGameObject = function(pos_x, pos_y, width, height, gfx_element_id)
 
 gGameObject.prototype.onCollideDefault = function(object, direction)
 {
-	if (direction == 2)
+	//  the ... side of "this" hit "object"
+	switch (direction)
 	{
-//		alert("e!");
-		this.pos_y = object.pos_y - this.height;
-		this.speed_y = obj.speed_y;
+		case 0: // top
+			if (this.speed_y < 0)
+			{
+				this.pos_y = object.pos_y + object.height + 1;
+				this.speed_y = object.speed_y;
+			}
+		break;
+		
+		case 1: // right
+			if (this.speed_x > 0)
+			{
+				this.pos_x = object.pos_x - this.width;
+				this.speed_x = object.speed_x;
+			}
+		break;
+		
+		case 2: // bottom
+			if (this.speed_y > 0)
+			{
+				this.pos_y = object.pos_y - this.height;
+				this.speed_y = object.speed_y;
+			}
+		break;
+		
+		case 3: // left
+			if (this.speed_x < 0)
+			{
+				this.pos_x = object.pos_x - object.width + 1;
+				this.speed_x = object.speed_x;
+			}
+		break;
 	}
 }
 
