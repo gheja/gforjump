@@ -1,0 +1,79 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>g / sound</title>
+		<style type="text/css">
+			.a,
+			.b
+			{
+				display: block;
+				float: left;
+				height: 200px;
+				width: 40px;
+				border: 1px solid #888888;
+			}
+			.a
+			{
+				background: #ffffff;
+				color: #000000;
+			}
+			.b
+			{
+				background: #000000;
+				color: #ffffff;
+			}
+			.c
+			{
+				background: #22cc00;
+				color: #ffffff;
+			}
+			a
+			{
+				text-decoration: none;
+			}
+			
+			.clearer
+			{
+				clear: both;
+				float: none;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/engine/sfx_riffwave.js" type="text/javascript"></script>
+		<script src="js/engine/sfx_notes.js" type="text/javascript"></script>
+		<script src="js/engine/sfx.js" type="text/javascript"></script>
+		
+		<script src="js/tests/sfx_test.js" type="text/javascript"></script>
+		
+		<a href="#" onMouseDown="SfxTestNote(C3, 0); return false" class="a">C</a> 
+		<a href="#" onMouseDown="SfxTestNote(C3S, 0); return false" class="b">C#</a> 
+		<a href="#" onMouseDown="SfxTestNote(D3, 0); return false" class="a">D</a> 
+		<a href="#" onMouseDown="SfxTestNote(D3S, 0); return false" class="b">D#</a> 
+		<a href="#" onMouseDown="SfxTestNote(E3, 0); return false" class="a">E</a> 
+		<a href="#" onMouseDown="SfxTestNote(F3, 0); return false" class="a">F</a> 
+		<a href="#" onMouseDown="SfxTestNote(F3S, 0); return false" class="b">F#</a> 
+		<a href="#" onMouseDown="SfxTestNote(G3, 0); return false" class="a">G</a> 
+		<a href="#" onMouseDown="SfxTestNote(G3S, 0); return false" class="b">G#</a> 
+		<a href="#" onMouseDown="SfxTestNote(A3, 0); return false" class="a">A</a> 
+		<a href="#" onMouseDown="SfxTestNote(A3S, 0); return false" class="b">A#</a> 
+		<a href="#" onMouseDown="SfxTestNote(B3, 0); return false" class="a">B</a> 
+		
+		<a href="#" onMouseDown="SfxTestNote(C4, 0); return false" class="a">C</a> 
+		<a href="#" onMouseDown="SfxTestNote(C4S, 0); return false" class="b">C#</a> 
+		<a href="#" onMouseDown="SfxTestNote(D4, 0); return false" class="a">D</a> 
+		<a href="#" onMouseDown="SfxTestNote(D4S, 0); return false" class="b">D#</a> 
+		<a href="#" onMouseDown="SfxTestNote(E4, 0); return false" class="a">E</a> 
+		<a href="#" onMouseDown="SfxTestNote(F4, 0); return false" class="a">F</a> 
+		<a href="#" onMouseDown="SfxTestNote(F4S, 0); return false" class="b">F#</a> 
+		<a href="#" onMouseDown="SfxTestNote(G4, 0); return false" class="a">G</a> 
+		<a href="#" onMouseDown="SfxTestNote(G4S, 0); return false" class="b">G#</a> 
+		<a href="#" onMouseDown="SfxTestNote(A4, 0); return false" class="a">A</a> 
+		<a href="#" onMouseDown="SfxTestNote(A4S, 0); return false" class="b">A#</a> 
+		<a href="#" onMouseDown="SfxTestNote(B4, 0); return false" class="a">B</a> 
+		
+		<br class="clearer" />
+		
+		<a href="#" onMouseDown="SfxTestDemo(); return false" class="c">Demo</a> 
+	</body>
+</html>
