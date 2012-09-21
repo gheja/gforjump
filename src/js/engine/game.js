@@ -1,9 +1,9 @@
-var gGameObject = function(pos_x, pos_y, gfx_element_id)
+var gGameObject = function(pos_x, pos_y, width, height, gfx_element_id)
 {
 	this.pos_x = pos_x;
 	this.pos_y = pos_y;
-	this.width = 0;
-	this.height = 0;
+	this.width = width;
+	this.height = height;
 	this.gfx_element_id = gfx_element_id;
 	
 	this.can_move = 0; // can it move?
@@ -77,7 +77,10 @@ var gGame = {
 	
 	AddGameObject: function(pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters)
 	{
-		var obj = new gGameObject(pos_x, pos_y, gfx_element_id);
+		var element_parameters = gGfx.GetElementParameters(gfx_element_id);
+		
+		var obj = new gGameObject(pos_x, pos_y, element_parameters.width, element_parameters.height, gfx_element_id);
+		
 		if (obj_parameters)
 		{
 			for (var key in obj_parameters)
@@ -85,6 +88,7 @@ var gGame = {
 				obj[key] = obj_parameters[key];
 			}
 		}
+		
 		this.game_objects.push(obj);
 	},
 	

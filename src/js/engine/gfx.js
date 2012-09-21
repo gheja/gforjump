@@ -5,6 +5,7 @@ var gGfx = {
 	scale: 4,
 	palette: [],
 	elements: [],
+	element_parameters: [],
 	backgrounds: [],
 	rendered: [],
 	
@@ -68,6 +69,8 @@ var gGfx = {
 			var lines = gGfx.elements[i].split(' ');
 			var width = lines[0].length;
 			var height = lines.length;
+			
+			gGfx.element_parameters[i] = { width: width, height: height };
 			
 			var obj = {};
 			obj.cv = document.createElement('canvas');
@@ -138,6 +141,11 @@ var gGfx = {
 		gGfx.context.translate(x * gGfx.scale, y * gGfx.scale)
 		gGfx.context.drawImage(gGfx.backgrounds[id].cv, 0, 0);
 		gGfx.context.restore();
+	},
+	
+	GetElementParameters: function(id)
+	{
+		return this.element_parameters[id];
 	},
 	
 	RenderFrame: function()
