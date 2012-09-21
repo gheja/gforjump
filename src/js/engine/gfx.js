@@ -142,20 +142,5 @@ var gGfx = {
 	
 	RenderFrame: function()
 	{
-		this.frame_number++;
-		gGfx.ClearScreen(0);
-		gGfx.DrawBackground(0, 0, 0);
-		gGfx.Draw(0, 0, 112);
-		gGfx.Draw(0, 8, 112);
-		gGfx.Draw(0, 16, 112);
-		gGfx.Draw(0, 32, 112);
-		gGfx.Draw(0, 40, 112);
-		gGfx.Draw(1, 8, 104);
-		gGfx.Draw(2, 152, 0);
-		gGfx.Draw(3, 40, 88, 0);
-		gGfx.Draw(4, 40, 80, 0);
-		gGfx.Draw(4, 48, 88, 1);
-		gGfx.Draw(4, 40, 96, 2);
-		gGfx.Draw(4, 32, 88, 3);
 	}
 };
