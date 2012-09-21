@@ -1,4 +1,4 @@
-var gfx = {
+var gGfx = {
 	context: null,
 	width: 160,
 	height: 120,
@@ -32,14 +32,14 @@ var gfx = {
 		var obj = {};
 		obj.cv = document.createElement('canvas');
 		
-		obj.cv.width = 320 * gfx.scale;
-		obj.cv.height = 120 * gfx.scale;
+		obj.cv.width = 320 * gGfx.scale;
+		obj.cv.height = 120 * gGfx.scale;
 		obj.ctx = obj.cv.getContext('2d');
 		
-		obj.ctx.fillStyle = gfx.palette[0];
+		obj.ctx.fillStyle = gGfx.palette[0];
 		obj.ctx.fillRect(0, 0, 320, 120);
 		
-		obj.ctx.fillStyle = gfx.palette[7];
+		obj.ctx.fillStyle = gGfx.palette[7];
 		obj.ctx.beginPath();
 		obj.ctx.moveTo(  0, 120);
 		obj.ctx.lineTo(  0,  60);
@@ -58,24 +58,24 @@ var gfx = {
 		obj.ctx.closePath();
 		obj.ctx.fill();
 		
-		obj.ctx.drawImage(obj.cv, 0, 0, 320, 120, 0, 0, 320 * gfx.scale, 120 * gfx.scale);
+		obj.ctx.drawImage(obj.cv, 0, 0, 320, 120, 0, 0, 320 * gGfx.scale, 120 * gGfx.scale);
 		
-		gfx.backgrounds[0] = obj;
+		gGfx.backgrounds[0] = obj;
 	},
 	
 	PreRender: function()
 	{
-		for (var i in gfx.elements)
+		for (var i in gGfx.elements)
 		{
-			var lines = gfx.elements[i].split(' ');
+			var lines = gGfx.elements[i].split(' ');
 			var width = lines[0].length;
 			var height = lines.length;
 			
 			var obj = {};
 			obj.cv = document.createElement('canvas');
 			
-			obj.cv.width = width * gfx.scale;
-			obj.cv.height = height * gfx.scale;
+			obj.cv.width = width * gGfx.scale;
+			obj.cv.height = height * gGfx.scale;
 			obj.ctx = obj.cv.getContext('2d');
 			
 			var line;
@@ -84,91 +84,81 @@ var gfx = {
 			lines.forEach(function(line, y) {
 				for (var x = 0; x < width; x++)
 				{
-					obj.ctx.fillStyle = line[x] != "." ? gfx.palette[line[x]] : "rgba(0, 0, 0, 0)";
-					obj.ctx.fillRect(x * gfx.scale, y * gfx.scale, gfx.scale, gfx.scale);
+					obj.ctx.fillStyle = line[x] != "." ? gGfx.palette[line[x]] : "rgba(0, 0, 0, 0)";
+					obj.ctx.fillRect(x * gGfx.scale, y * gGfx.scale, gGfx.scale, gGfx.scale);
 				}
 			});
 			
-			gfx.rendered[i] = obj;
+			gGfx.rendered[i] = obj;
 		};
 	},
 	
 	Init: function(object)
 	{
-		gfx.PreRenderBackgrounds();
-		gfx.PreRender();
-		gfx.context = document.getElementById(object).getContext("2d");
+		gGfx.PreRenderBackgrounds();
+		gGfx.PreRender();
+		gGfx.context = document.getElementById(object).getContext("2d");
 		// window.setTimeout(g.Frame, 1000 / 30);
 	},
 	
 	ClearScreen: function(color)
 	{
-		gfx.context.fillStyle = gfx.palette[color];
-		gfx.context.fillRect(0, 0, gfx.width * gfx.scale, gfx.height * gfx.scale);
+		gGfx.context.fillStyle = gGfx.palette[color];
+		gGfx.context.fillRect(0, 0, gGfx.width * gGfx.scale, gGfx.height * gGfx.scale);
 	},
 	
 	Draw: function(id, x, y, r)
 	{
-		gfx.context.save();
+		gGfx.context.save();
 		if (r == undefined || r == 0)
 		{
-			gfx.context.translate(x * gfx.scale, y * gfx.scale)
+			gGfx.context.translate(x * gGfx.scale, y * gGfx.scale)
 		}
 		else
 		{
 			if (r == 1)
 			{
-				gfx.context.translate((x + 8) * gfx.scale, y * gfx.scale)
+				gGfx.context.translate((x + 8) * gGfx.scale, y * gGfx.scale)
 			}
 			else if (r == 2)
 			{
-				gfx.context.translate((x + 8) * gfx.scale, (y + 8) * gfx.scale)
+				gGfx.context.translate((x + 8) * gGfx.scale, (y + 8) * gGfx.scale)
 			}
 			else
 			{
 				r = 3;
-				gfx.context.translate(x * gfx.scale, (y + 8) * gfx.scale)
+				gGfx.context.translate(x * gGfx.scale, (y + 8) * gGfx.scale)
 			}
-			gfx.context.rotate(r * 0.0174532925 * 90);
+			gGfx.context.rotate(r * 0.0174532925 * 90);
 		}
-		gfx.context.drawImage(gfx.rendered[id].cv, 0, 0);
-		gfx.context.restore();
+		gGfx.context.drawImage(gGfx.rendered[id].cv, 0, 0);
+		gGfx.context.restore();
 	},
 	
 	DrawBackground: function(id, x, y)
 	{
-		gfx.context.save();
-		gfx.context.translate(x * gfx.scale, y * gfx.scale)
-		gfx.context.drawImage(gfx.backgrounds[id].cv, 0, 0);
-		gfx.context.restore();
-	}
-};
-
-
-var g = {
-	frame_number: 0,
-	
-	Init: function(object)
-	{
-		gfx.Init(object);
+		gGfx.context.save();
+		gGfx.context.translate(x * gGfx.scale, y * gGfx.scale)
+		gGfx.context.drawImage(gGfx.backgrounds[id].cv, 0, 0);
+		gGfx.context.restore();
 	},
 	
 	RenderFrame: function()
 	{
 		this.frame_number++;
-		gfx.ClearScreen(0);
-		gfx.DrawBackground(0, 0, 0);
-		gfx.Draw(0, 0, 112);
-		gfx.Draw(0, 8, 112);
-		gfx.Draw(0, 16, 112);
-		gfx.Draw(0, 32, 112);
-		gfx.Draw(0, 40, 112);
-		gfx.Draw(1, 8, 104);
-		gfx.Draw(2, 152, 0);
-		gfx.Draw(3, 40, 88, 0);
-		gfx.Draw(4, 40, 80, 0);
-		gfx.Draw(4, 48, 88, 1);
-		gfx.Draw(4, 40, 96, 2);
-		gfx.Draw(4, 32, 88, 3);
+		gGfx.ClearScreen(0);
+		gGfx.DrawBackground(0, 0, 0);
+		gGfx.Draw(0, 0, 112);
+		gGfx.Draw(0, 8, 112);
+		gGfx.Draw(0, 16, 112);
+		gGfx.Draw(0, 32, 112);
+		gGfx.Draw(0, 40, 112);
+		gGfx.Draw(1, 8, 104);
+		gGfx.Draw(2, 152, 0);
+		gGfx.Draw(3, 40, 88, 0);
+		gGfx.Draw(4, 40, 80, 0);
+		gGfx.Draw(4, 48, 88, 1);
+		gGfx.Draw(4, 40, 96, 2);
+		gGfx.Draw(4, 32, 88, 3);
 	}
 };
