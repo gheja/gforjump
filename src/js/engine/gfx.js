@@ -3,29 +3,25 @@ var gGfx = {
 	width: 160,
 	height: 120,
 	scale: 4,
-	
-	palette: {
-		0: "#0ac",
-		1: "#d80",
-		2: "#fa0",
-		3: "#fff",
-		4: "#ff0",
-		5: "#aaa",
-		6: "#888",
-		7: "#09c",
-	},
-	
-	elements: {
-		0: "11111111 22212222 22212222 22212222 11111111 22222212 22222212 22222212",
-		1: "...33... ..3333.. ..3333.. ...33... ..33333. .3.33.3. ...33... .33..33.",
-		2: "44444444 44414414 44444444 .4444444 .4144444 .4411111 ..444444 ....4444",
-		3: "66666666 61111116 61611616 61111116 61611616 61166116 61111116 66666666",
-		4: "....3... ...36... ..356... .3556... .3556... 355556.. 3555556. 35555556",
-	},
-	
+	palette: [],
+	elements: [],
 	backgrounds: [],
-	
 	rendered: [],
+	
+	Init: function(object)
+	{
+		gGfx.context = document.getElementById(object).getContext("2d");
+	},
+	
+	SetPalette: function(palette)
+	{
+		this.palette = palette;
+	},
+	
+	SetElements: function(elements)
+	{
+		this.elements = elements;
+	},
 	
 	PreRenderBackgrounds: function()
 	{
@@ -63,8 +59,10 @@ var gGfx = {
 		gGfx.backgrounds[0] = obj;
 	},
 	
-	PreRender: function()
+	PreRenderElements: function()
 	{
+		gGfx.rendered = new Array();
+		
 		for (var i in gGfx.elements)
 		{
 			var lines = gGfx.elements[i].split(' ');
@@ -93,11 +91,10 @@ var gGfx = {
 		};
 	},
 	
-	Init: function(object)
+	PreRender: function()
 	{
 		gGfx.PreRenderBackgrounds();
-		gGfx.PreRender();
-		gGfx.context = document.getElementById(object).getContext("2d");
+		gGfx.PreRenderElements();
 		// window.setTimeout(g.Frame, 1000 / 30);
 	},
 	
