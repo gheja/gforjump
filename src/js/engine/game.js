@@ -75,14 +75,14 @@ var gGame = {
 	frame_number: 0,
 	game_objects: [],
 	
-	AddGameObject: function(pos_x, pos_y, gfx_element_id, parameters)
+	AddGameObject: function(pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters)
 	{
 		var obj = new gGameObject(pos_x, pos_y, gfx_element_id);
-		if (parameters)
+		if (obj_parameters)
 		{
-			for (var key in parameters)
+			for (var key in obj_parameters)
 			{
-				obj[key] = parameters[key];
+				obj[key] = obj_parameters[key];
 			}
 		}
 		this.game_objects.push(obj);
@@ -97,7 +97,7 @@ var gGame = {
 		
 		for (var i in g_game_objects)
 		{
-			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3]);
+			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4]);
 		}
 	},
 	
