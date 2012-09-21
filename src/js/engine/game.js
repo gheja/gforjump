@@ -76,8 +76,20 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 			return;
 		}
 		
-		// below
-		if (this.pos_y + this.height <= obj.pos_y && this.pos_y + this.height + this.speed_y > obj.pos_y)
+		// check if the ... side of "this" hits "obj"
+		
+		// top
+		if (this.pos_y > obj.pos_y + obj.height && this.pos_y + this.speed_y < obj.pos_y + obj.height &&
+			this.pos_x <= obj.pos_x + obj.width && this.pos_x + this.width >= obj.pos_x)
+		{
+			this.onCollide(obj, 0);
+			obj.onCollide(this, 2);
+			collision = true;
+		}
+		
+		// bottom
+		if (this.pos_y + this.height <= obj.pos_y && this.pos_y + this.height + this.speed_y > obj.pos_y &&
+			this.pos_x <= obj.pos_x + obj.width && this.pos_x + this.width >= obj.pos_x)
 		{
 			this.onCollide(obj, 2);
 			obj.onCollide(this, 0);
