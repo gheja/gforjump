@@ -65,7 +65,7 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 	this.osc3_mod = osc3_mod;
 	this.osc3_volume = osc3_volume;
 	
-	/* calculates wave date (float, -1..1) */
+	/* calculates wave data (float, -1..1) */
 	this.DoIt = function(freq, length)
 	{
 		var sample_rate = 44100;
