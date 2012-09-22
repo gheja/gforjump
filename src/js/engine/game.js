@@ -174,12 +174,12 @@ var gGameInput = {
 				gGameInput.statuses[G_GAME_INPUT_DUCK] = value;
 			break;
 			
-			case 37: // left arrow
+			case 37: // left arrow, FALLTHROUGH
 			case 65: // "a"
 				gGameInput.statuses[G_GAME_INPUT_LEFT] = value;
 			break;
 			
-			case 39: // right arrow,
+			case 39: // right arrow, FALLTHROUGH
 			case 68: // "d"
 				gGameInput.statuses[G_GAME_INPUT_RIGHT] = value;
 			break;
