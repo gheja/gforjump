@@ -258,10 +258,10 @@ var gGame = {
 		
 		if (gGameInput.GetStatus(G_GAME_INPUT_LEFT))
 		{
-			this.game_objects[0].speed_x = -2;
+			this.game_objects[0].speed_x = -1;
 		} else if (gGameInput.GetStatus(G_GAME_INPUT_RIGHT))
 		{
-			this.game_objects[0].speed_x = 2;
+			this.game_objects[0].speed_x = 1;
 		} else
 		{
 			this.game_objects[0].speed_x = 0;
@@ -269,7 +269,7 @@ var gGame = {
 		
 		if (gGameInput.GetStatus(G_GAME_INPUT_JUMP) && this.game_objects[0].collision_bottom)
 		{
-			this.game_objects[0].speed_y = -10;
+			this.game_objects[0].speed_y = -8;
 		}
 		
 		// gGfx.RenderFrame();
