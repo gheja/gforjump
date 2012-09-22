@@ -87,7 +87,7 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 		// check if the ... side of "this" hits "obj"
 		
 		// top
-		if (this.pos_y > obj.pos_y + obj.height && this.pos_y + this.speed_y < obj.pos_y + obj.height &&
+		if (this.pos_y >= obj.pos_y + obj.height && this.pos_y + this.speed_y < obj.pos_y + obj.height &&
 			this.pos_x < obj.pos_x + obj.width && this.pos_x + this.width > obj.pos_x)
 		{
 			this.onCollide(obj, 0);
