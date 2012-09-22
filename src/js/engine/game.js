@@ -232,6 +232,7 @@ var gGame = {
 			}
 		}
 	},
+	
 	Restart: function()
 	{
 		this.game_objects = [];
