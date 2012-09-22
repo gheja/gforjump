@@ -163,42 +163,26 @@ var gGameInput = {
 	
 	KeyHandler: function(event, value)
 	{
-		switch (event.keyCode)
+		var handled_keys = {
+			38: G_GAME_INPUT_JUMP,
+			87: G_GAME_INPUT_JUMP,
+			40: G_GAME_INPUT_DUCK,
+			83: G_GAME_INPUT_DUCK,
+			37: G_GAME_INPUT_LEFT,
+			65: G_GAME_INPUT_LEFT,
+			39: G_GAME_INPUT_RIGHT,
+			68: G_GAME_INPUT_RIGHT,
+			32: G_GAME_INPUT_FIRE,
+			16: G_GAME_INPUT_RUN
+		};
+		
+		if (handled_keys[event.keyCode] !== undefined)
 		{
-			case 38: // up arrow, FALLTHROUGH
-			case 87: // "w"
-				gGameInput.statuses[G_GAME_INPUT_JUMP] = value;
-			break;
-			
-			case 40: // down arrow, FALLTHROUGH
-			case 83: // "s"
-				gGameInput.statuses[G_GAME_INPUT_DUCK] = value;
-			break;
-			
-			case 37: // left arrow, FALLTHROUGH
-			case 65: // "a"
-				gGameInput.statuses[G_GAME_INPUT_LEFT] = value;
-			break;
-			
-			case 39: // right arrow, FALLTHROUGH
-			case 68: // "d"
-				gGameInput.statuses[G_GAME_INPUT_RIGHT] = value;
-			break;
-			
-			case 32: // space
-				gGameInput.statuses[G_GAME_INPUT_FIRE] = value;
-			break;
-			
-			case 16: // shift
-				gGameInput.statuses[G_GAME_INPUT_RUN] = value;
-			break;
-			
-			default:
-				return true;
-			break;
+			this.statuses[handled_keys[event.keyCode]] = value;
+			return false;
 		}
 		
-		return false;
+		return true;
 	},
 	
 	GetStatus: function(status)
