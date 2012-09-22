@@ -59,6 +59,9 @@ gGameObject.prototype.onCollide = function(object, direction)
 	if (object.gfx_element_id == 5)
 	{
 		this.dead = 1;
+		this.speed_x = 0;
+		this.gfx_element_id = 6;
+		this.height = 4;
 	}
 	this.onCollideDefault(object, direction);
 }
@@ -270,25 +273,30 @@ var gGame = {
 		
 		if (this.game_objects[0].dead)
 		{
-			this.Restart();
+			if (gGameInput.GetStatus(G_GAME_INPUT_JUMP))
+			{
+				this.Restart();
+			}
 		}
-		
-		speed = gGameInput.GetStatus(G_GAME_INPUT_RUN) ? 2 : 1;
-		
-		if (gGameInput.GetStatus(G_GAME_INPUT_LEFT))
+		else
 		{
-			this.game_objects[0].speed_x = -speed;
-		} else if (gGameInput.GetStatus(G_GAME_INPUT_RIGHT))
-		{
-			this.game_objects[0].speed_x = speed;
-		} else
-		{
-			this.game_objects[0].speed_x = 0;
-		}
-		
-		if (gGameInput.GetStatus(G_GAME_INPUT_JUMP) && this.game_objects[0].collision_bottom)
-		{
-			this.game_objects[0].speed_y = -8;
+			speed = gGameInput.GetStatus(G_GAME_INPUT_RUN) ? 2 : 1;
+			
+			if (gGameInput.GetStatus(G_GAME_INPUT_LEFT))
+			{
+				this.game_objects[0].speed_x = -speed;
+			} else if (gGameInput.GetStatus(G_GAME_INPUT_RIGHT))
+			{
+				this.game_objects[0].speed_x = speed;
+			} else
+			{
+				this.game_objects[0].speed_x = 0;
+			}
+			
+			if (gGameInput.GetStatus(G_GAME_INPUT_JUMP) && this.game_objects[0].collision_bottom)
+			{
+				this.game_objects[0].speed_y = -8;
+			}
 		}
 		
 		// gGfx.RenderFrame();
