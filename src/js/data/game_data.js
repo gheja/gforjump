@@ -27,7 +27,7 @@ var g_game_objects = [
 	// pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters
 	
 	// first object must be the player
-	[ 16,  96,  1, null, { can_move: 1, gravity_enabled: 1, speed_y: 0 } ],
+	[ 16,  96,  1, null, { can_move: 1, gravity_enabled: 1, speed_y: -8 } ],
 	
 	[   0,  112, 0, [ 6, 1 ] ],
 	[  64,  112, 0, [ 3, 1 ] ],
@@ -36,5 +36,5 @@ var g_game_objects = [
 	[  0,  104, 0 ],
 	[ 104,   64, 3 ],
 	[ 120,  144, 0, [ 20, 1 ] ],
-	[ -32,  152, 5, [ 60, 1 ] ]
+	[ -64,  256, 5, [ 100, 1 ] ]
 ];
