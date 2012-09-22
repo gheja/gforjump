@@ -56,13 +56,14 @@ gGameObject.prototype.onCollideDefault = function(object, direction)
 
 gGameObject.prototype.onCollide = function(object, direction)
 {
-	if (object.gfx_element_id == 5)
+	if (object.gfx_element_id == 5 || object.gfx_element_id == 4)
 	{
 		this.dead = 1;
 		this.speed_x = 0;
 		this.gfx_element_id = 6;
 		this.height = 4;
 	}
+	
 	this.onCollideDefault(object, direction);
 }
 
