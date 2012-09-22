@@ -172,7 +172,7 @@ var gGameInput = {
 			65: G_GAME_INPUT_LEFT,
 			39: G_GAME_INPUT_RIGHT,
 			68: G_GAME_INPUT_RIGHT,
-			32: G_GAME_INPUT_JUMP,
+			32: G_GAME_INPUT_JUMP	,
 			16: G_GAME_INPUT_RUN
 		};
 		
@@ -195,6 +195,8 @@ var gGame = {
 	frame_number: 0,
 	game_objects: [],
 	game_input: null,
+	screen_x: 0,
+	screen_y: 0,
 	
 	AddGameObject: function(pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters)
 	{
@@ -275,13 +277,29 @@ var gGame = {
 			this.game_objects[i].Tick(this.game_objects);
 		}
 		
+		if (this.game_objects[0].pos_x < this.screen_x + 20)
+		{
+			this.screen_x = this.game_objects[0].pos_x - 20;
+		} else if (this.game_objects[0].pos_x > this.screen_x + 140)
+		{
+			this.screen_x = this.game_objects[0].pos_x - 140;
+		}
+		
+		if (this.game_objects[0].pos_y < this.screen_y + 20)
+		{
+			this.screen_y = this.game_objects[0].pos_y - 20;
+		} else if (this.game_objects[0].pos_y > this.screen_y + 100)
+		{
+			this.screen_y = this.game_objects[0].pos_y - 100;
+		}
+		
 		gGfx.ClearScreen(0);
-		gGfx.DrawBackground(0, 0, 0);
+		gGfx.DrawBackground(0, Math.floor(this.screen_x * -0.5), Math.floor(this.screen_y * -0.5));
 		for (var i in this.game_objects)
 		{
 			obj = this.game_objects[i];
 			
-			gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x), Math.floor(obj.pos_y));
+			gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y));
 		}
 	}
 };
