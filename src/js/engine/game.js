@@ -150,8 +150,8 @@ var gGameInput = {
 	{
 		gGameInput.original_onkeydown = window.onkeydown;
 		gGameInput.original_onkeyup = window.onkeyup;
-		window.onkeydown = function(event) { gGameInput.KeyHandler(event, 1); }
-		window.onkeyup = function(event) { gGameInput.KeyHandler(event, 0); }
+		window.onkeydown = function(event) { return gGameInput.KeyHandler(event, 1); }
+		window.onkeyup = function(event) { return gGameInput.KeyHandler(event, 0); }
 	},
 	
 	Detach: function()
@@ -187,7 +187,13 @@ var gGameInput = {
 			case 32: // space
 				gGameInput.statuses[G_GAME_INPUT_FIRE] = value;
 			break;
+			
+			default:
+				return true;
+			break;
 		}
+		
+		return false;
 	},
 	
 	GetStatus: function(status)
