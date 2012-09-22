@@ -11,6 +11,11 @@ var gGameObject = function(pos_x, pos_y, width, height, gfx_element_id)
 	this.can_collide = 1;
 	this.speed_x = 0;
 	this.speed_y = 0;
+	this.collision_top = 0;
+	this.collision_right = 0;
+	this.collision_bottom = 0;
+	this.collision_left = 0;
+	this.collision = 0;
 	
 	return this;
 };
@@ -66,7 +71,10 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 		this.speed_y += 1;
 	}
 	
-	var collision = false;
+	this.collision_left = 0;
+	this.collision_right = 0;
+	this.collision_top = 0;
+	this.collision_bottom = 0;
 	
 	for (var i in objects)
 	{
@@ -84,7 +92,7 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 		{
 			this.onCollide(obj, 0);
 			obj.onCollide(this, 2);
-			collision = true;
+			this.collision_top = 1;
 		}
 		
 		// bottom
@@ -93,13 +101,18 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 		{
 			this.onCollide(obj, 2);
 			obj.onCollide(this, 0);
-			collision = true;
+			this.collision_bottom = 1;
 		}
 	}
 	
-	if (!collision)
+	this.collision = this.collision_top || this.collision_right || this.collision_bottom || this.collision_left;
+	
+	if (!this.collision_left && !this.collision_right)
 	{
 		this.pos_x += this.speed_x;
+	}
+	if (!this.collision_top && !this.collision_bottom)
+	{
 		this.pos_y += this.speed_y;
 	}
 }
@@ -112,9 +125,74 @@ gGameObject.prototype.Tick = function(objects)
 	}
 }
 
+
+var G_GAME_INPUT_JUMP = 0;
+var G_GAME_INPUT_DUCK = 1;
+var G_GAME_INPUT_LEFT = 2;
+var G_GAME_INPUT_RIGHT = 3;
+var G_GAME_INPUT_FIRE = 4;
+
+
+// "static class"
+var gGameInput = {
+	statuses: [],
+	original_onkeydown: null,
+	original_onkeyup: null,
+	
+	Attach: function()
+	{
+		gGameInput.original_onkeydown = window.onkeydown;
+		gGameInput.original_onkeyup = window.onkeyup;
+		window.onkeydown = function(event) { gGameInput.KeyHandler(event, 1); }
+		window.onkeyup = function(event) { gGameInput.KeyHandler(event, 0); }
+	},
+	
+	Detach: function()
+	{
+		window.onkeydown = gGameInput.original_onkeydown;
+		window.onkeyup = gGameInput.original_onkeyup;
+	},
+	
+	KeyHandler: function(event, value)
+	{
+		switch (event.keyCode)
+		{
+			case 38: // up arrow, FALLTHROUGH
+			case 87: // "w"
+				gGameInput.statuses[G_GAME_INPUT_JUMP] = value;
+			break;
+			
+			case 40: // down arrow, FALLTHROUGH
+			case 83: // "s"
+				gGameInput.statuses[G_GAME_INPUT_DUCK] = value;
+			break;
+			
+			case 37: // left arrow
+			case 65: // "a"
+				gGameInput.statuses[G_GAME_INPUT_LEFT] = value;
+			break;
+			
+			case 39: // right arrow,
+			case 68: // "d"
+				gGameInput.statuses[G_GAME_INPUT_RIGHT] = value;
+			break;
+			
+			case 32: // space
+				gGameInput.statuses[G_GAME_INPUT_FIRE] = value;
+			break;
+		}
+	},
+	
+	GetStatus: function(status)
+	{
+		return gGameInput.statuses[status];
+	}
+}
+
 var gGame = {
 	frame_number: 0,
 	game_objects: [],
+	game_input: null,
 	
 	AddGameObject: function(pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters)
 	{
@@ -158,6 +236,8 @@ var gGame = {
 		gGfx.SetElements(g_gfx_elements);
 		gGfx.PreRender();
 		
+		gGameInput.Attach();
+		
 		for (var i in g_game_objects)
 		{
 			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4]);
@@ -168,6 +248,23 @@ var gGame = {
 	{
 		var obj;
 		this.frame_number++;
+		
+		if (gGameInput.GetStatus(G_GAME_INPUT_LEFT))
+		{
+			this.game_objects[0].speed_x = -2;
+		} else if (gGameInput.GetStatus(G_GAME_INPUT_RIGHT))
+		{
+			this.game_objects[0].speed_x = 2;
+		} else if (this.game_objects[0].collision_bottom)
+		{
+			this.game_objects[0].speed_x = 0;
+		}
+		
+		if (gGameInput.GetStatus(G_GAME_INPUT_JUMP) && this.game_objects[0].collision_bottom)
+		{
+			this.game_objects[0].speed_y = -10;
+		}
+		
 		// gGfx.RenderFrame();
 		for (var i in this.game_objects)
 		{
