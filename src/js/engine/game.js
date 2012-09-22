@@ -138,6 +138,7 @@ var G_GAME_INPUT_DUCK = 1;
 var G_GAME_INPUT_LEFT = 2;
 var G_GAME_INPUT_RIGHT = 3;
 var G_GAME_INPUT_FIRE = 4;
+var G_GAME_INPUT_RUN = 5;
 
 
 // "static class"
@@ -186,6 +187,10 @@ var gGameInput = {
 			
 			case 32: // space
 				gGameInput.statuses[G_GAME_INPUT_FIRE] = value;
+			break;
+			
+			case 16: // shift
+				gGameInput.statuses[G_GAME_INPUT_RUN] = value;
 			break;
 			
 			default:
@@ -259,15 +264,17 @@ var gGame = {
 	
 	Tick: function()
 	{
-		var obj;
+		var obj, speed;
 		this.frame_number++;
+		
+		speed = gGameInput.GetStatus(G_GAME_INPUT_RUN) ? 2 : 1;
 		
 		if (gGameInput.GetStatus(G_GAME_INPUT_LEFT))
 		{
-			this.game_objects[0].speed_x = -1;
+			this.game_objects[0].speed_x = -speed;
 		} else if (gGameInput.GetStatus(G_GAME_INPUT_RIGHT))
 		{
-			this.game_objects[0].speed_x = 1;
+			this.game_objects[0].speed_x = speed;
 		} else
 		{
 			this.game_objects[0].speed_x = 0;
