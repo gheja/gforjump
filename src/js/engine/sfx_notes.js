@@ -1,9 +1,9 @@
 /* http://liutaiomottola.com/formulae/freqtab.htm */
 
 var C0 = 16.351;
-var C0 = 17.324;
+var C0S = 17.324;
 var D0 = 18.354;
-var D0 = 19.445;
+var D0S = 19.445;
 var E0 = 20.601;
 var F0 = 21.827;
 var F0S = 23.124;
