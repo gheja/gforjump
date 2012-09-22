@@ -6,6 +6,8 @@ var gGameObject = function(pos_x, pos_y, width, height, gfx_element_id)
 	this.height = height;
 	this.gfx_element_id = gfx_element_id;
 	
+	this.dead = 0;
+	
 	this.can_move = 0; // can it move?
 	this.gravity_enabled = 0;
 	this.can_collide = 1;
@@ -54,6 +56,10 @@ gGameObject.prototype.onCollideDefault = function(object, direction)
 
 gGameObject.prototype.onCollide = function(object, direction)
 {
+	if (object.gfx_element_id == 5)
+	{
+		this.dead = 1;
+	}
 	this.onCollideDefault(object, direction);
 }
 
@@ -261,6 +267,11 @@ var gGame = {
 	{
 		var obj, speed;
 		this.frame_number++;
+		
+		if (this.game_objects[0].dead)
+		{
+			this.Restart();
+		}
 		
 		speed = gGameInput.GetStatus(G_GAME_INPUT_RUN) ? 2 : 1;
 		
