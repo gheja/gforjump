@@ -275,7 +275,7 @@ var gGame = {
 		} else if (gGameInput.GetStatus(G_GAME_INPUT_RIGHT))
 		{
 			this.game_objects[0].speed_x = 2;
-		} else if (this.game_objects[0].collision_bottom)
+		} else
 		{
 			this.game_objects[0].speed_x = 0;
 		}
