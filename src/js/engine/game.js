@@ -22,39 +22,32 @@ var gGameObject = function(pos_x, pos_y, width, height, gfx_element_id)
 
 gGameObject.prototype.onCollideDefault = function(object, direction)
 {
+	if (!this.can_move)
+	{
+		return;
+	}
+	
 	//  the ... side of "this" hit "object"
 	switch (direction)
 	{
 		case 0: // top
-			if (this.speed_y < 0)
-			{
-				this.pos_y = object.pos_y + object.height + 1;
-				this.speed_y = object.speed_y;
-			}
+			this.pos_y = object.pos_y + object.height;
+			this.speed_y = object.speed_y;
 		break;
 		
 		case 1: // right
-			if (this.speed_x > 0)
-			{
-				this.pos_x = object.pos_x - this.width;
-				this.speed_x = object.speed_x;
-			}
+			this.pos_x = object.pos_x - this.width;
+			this.speed_x = object.speed_x;
 		break;
 		
 		case 2: // bottom
-			if (this.speed_y > 0)
-			{
-				this.pos_y = object.pos_y - this.height;
-				this.speed_y = object.speed_y;
-			}
+			this.pos_y = object.pos_y - this.height;
+			this.speed_y = object.speed_y;
 		break;
 		
 		case 3: // left
-			if (this.speed_x < 0)
-			{
-				this.pos_x = object.pos_x - object.width + 1;
-				this.speed_x = object.speed_x;
-			}
+			this.pos_x = object.pos_x + object.width;
+			this.speed_x = object.speed_x;
 		break;
 	}
 }
@@ -109,7 +102,7 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 			((this.pos_y < obj.pos_y + obj.height && this.pos_y + this.height > obj.pos_y) ||
 			(this.pos_y < obj.pos_y && this.pos_y + this.height > obj.pos_y + obj.height)))
 		{
-			this.onCollide(obj, 1);
+			this.onCollide(obj, 3);
 			obj.onCollide(this, 3);
 			this.collision_left = 1;
 		}
@@ -119,7 +112,7 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 			((this.pos_y < obj.pos_y + obj.height && this.pos_y + this.height > obj.pos_y) ||
 			(this.pos_y < obj.pos_y && this.pos_y + this.height > obj.pos_y + obj.height)))
 		{
-			this.onCollide(obj, 3);
+			this.onCollide(obj, 1);
 			obj.onCollide(this, 1);
 			this.collision_right = 1;
 		}
@@ -127,14 +120,8 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 	
 	this.collision = this.collision_top || this.collision_right || this.collision_bottom || this.collision_left;
 	
-	if (!this.collision_left && !this.collision_right)
-	{
-		this.pos_x += this.speed_x;
-	}
-	if (!this.collision_top && !this.collision_bottom)
-	{
-		this.pos_y += this.speed_y;
-	}
+	this.pos_x += this.speed_x;
+	this.pos_y += this.speed_y;
 }
 
 gGameObject.prototype.Tick = function(objects)
