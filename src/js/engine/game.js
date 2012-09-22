@@ -64,6 +64,12 @@ gGameObject.prototype.onCollide = function(object, direction)
 		this.height = 4;
 	}
 	
+	if (object.gfx_element_id == 4)
+	{
+		// no more collision handling, do not stop the player
+		return;
+	}
+	
 	this.onCollideDefault(object, direction);
 }
 
