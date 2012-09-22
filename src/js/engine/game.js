@@ -232,6 +232,17 @@ var gGame = {
 			}
 		}
 	},
+	Restart: function()
+	{
+		this.game_objects = [];
+		this.screen_x = 0;
+		this.screen_y = 0;
+		
+		for (var i in g_game_objects)
+		{
+			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4]);
+		}
+	},
 	
 	Init: function(canvas)
 	{
@@ -242,10 +253,7 @@ var gGame = {
 		
 		gGameInput.Attach();
 		
-		for (var i in g_game_objects)
-		{
-			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4]);
-		}
+		this.Restart();
 	},
 	
 	Tick: function()
