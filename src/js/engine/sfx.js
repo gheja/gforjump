@@ -130,7 +130,7 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 
 
 
-var gSfxTrack = function(length)
+var gSfxTrack = function(bpm, lpb, beats)
 {
 	this.instrument = null;
 	this.track = new Array();
@@ -141,22 +141,34 @@ var gSfxTrack = function(length)
 	this.sample_count = 0;
 	
 	
-	this.RenderChannel = function(instrument, track)
+	this.RenderChannel = function(instrument, track, default_length)
 	{
-		var i, j, c, note;
-		var b = new Array();
+		var i, j, b, note, length, freq;
 		var current_s = 0;
 		
 		/* render and mix notes... */
 		for (i in track)
 		{
-			note = instrument.DoIt(track[i][0], track[i][1]);
+			// every item is encoded as the following:
+			//   (semitone index) + (length fraction) * 256
+			//
+			// semitone index is: 1 (C0)... 48 (A4)... 111 (B9)
+			
+			freq = 440 * Math.pow(2, ((track[i] % 256) - 48) / 12);
+			b = Math.floor(track[i] / 256);
+			if (b == 0)
+			{
+				b = default_length ? default_length / 256 : this.lpb;
+			}
+			length = (1 / b) * (60 / this.bpm);
+			
+			note = instrument.DoIt(freq, length);
 			for (j=0; j<note.length; j++)
 			{
 				this.samples[current_s + j] += note[j];
 			}
 			note = null;
-			current_s += track[i][2] * this.sample_rate;
+			current_s += Math.floor(length * this.sample_rate);
 		}
 		
 		this.sample_count = Math.max(this.sample_count, current_s);
@@ -195,9 +207,11 @@ var gSfxTrack = function(length)
 	
 	/* "constructor" */
 	
-	this.length = length;
+	this.bpm = bpm; // beats per minute
+	this.lpb = lpb; // lines per beat
+	this.beats = beats;
 	
-	for (var i=0; i<this.length * this.sample_rate; i++)
+	for (var i=0; i<this.beats * (60 / this.bpm) * this.sample_rate; i++)
 	{
 		this.samples[i] = 0;
 	}

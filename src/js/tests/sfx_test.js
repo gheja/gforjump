@@ -18,14 +18,14 @@ var instrument_base = new gSfxInstrument(
 	0.2  // osc3 volume (optional)
 );
 
-function SfxTestNote(freq, length)
+function SfxTestNote(note)
 {
-	var track = new gSfxTrack(1); // seconds
+	var track = new gSfxTrack(90, 4, 2);
 	
 	track.RenderChannel(
 		instrument_base,
 		[
-			[freq, length, 0.25]
+			note
 		]
 	);
 	track.RenderFinal();
@@ -60,52 +60,17 @@ function SfxTestDemo()
 		0.2  // osc3 volume (optional)
 	);
 	
-	var track = new gSfxTrack(10); // seconds
+	var track = new gSfxTrack(80, 4, 10); // beats per minute, lines per beat, total beats
 	
 	track.RenderChannel(
 		instrument0,
 		[
-			[C4, 0, 0.25],
-			[E4, 0, 0.25],
-			[G4, 0, 0.25],
-			[E4, 0, 0.25],
-			[C4, 0, 0.25],
-			[E4, 0, 0.25],
-			[G4, 0, 0.25],
-			[E4, 0, 0.4],
-			[A3, 0, 0.25],
-			[C4, 0, 0.25],
-			[E4, 0, 0.25],
-			[C4, 0, 0.25],
-			[A3, 0, 0.25],
-			[C4, 0, 0.25],
-			[E4, 0, 0.25],
-			[C4, 0, 0.4],
-			[G3, 0, 0.25],
-			[B3, 0, 0.25],
-			[D4, 0, 0.25],
-			[B3, 0, 0.25],
-			[G3, 0, 0.25],
-			[B3, 0, 0.25],
-			[D4, 0, 0.25],
-			[B3, 0, 0.4],
-			[G3, 0, 0.4],
-			[G3, 0, 0.25],
-			[G3, 0, 0.4],
-			[G3, 0, 0.25],
-			[G3, 0, 0.25],
-			[G3, 0, 0.25]
-		]
-	);
-	
-	track.RenderChannel(
-		instrument1,
-		[
-			[D2, 0, 2],
-			[E2, 0, 2],
-			[F2, 0, 2],
-			[G2, 0, 2],
-		]
+			DS5, AS4, G4, DS5, AS4, G4, DS5, AS4,
+			CS5, AS4, F4, CS5, AS4, F4, CS5, AS4,
+			CS5, AS4, F4, CS5, AS4, F4, CS5, AS4,
+			C5, GS4, F4, C5, GS4, F4, C5, GS4
+		],
+		Q4
 	);
 	
 	track.Crop();
