@@ -129,12 +129,17 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 	this.pos_y += this.speed_y;
 }
 
-gGameObject.prototype.Tick = function(objects)
+gGameObject.prototype.DefaultTick = function(objects)
 {
 	if (this.can_move)
 	{
 		this.UpdateDynamicValues(objects);
 	}
+}
+
+gGameObject.prototype.Tick = function(objects)
+{
+	this.DefaultTick(objects);
 }
 
 
