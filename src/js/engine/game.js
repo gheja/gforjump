@@ -1,9 +1,9 @@
-var gGameObject = function(pos_x, pos_y, width, height, gfx_element_id)
+var gGameObject = function(gfx_element_id)
 {
-	this.pos_x = pos_x;
-	this.pos_y = pos_y;
-	this.width = width;
-	this.height = height;
+	this.pos_x = 0;
+	this.pos_y = 0;
+	this.width = 0;
+	this.height = 0;
 	this.gfx_element_id = gfx_element_id;
 	
 	this.dead = 0;
@@ -21,6 +21,13 @@ var gGameObject = function(pos_x, pos_y, width, height, gfx_element_id)
 	
 	return this;
 };
+
+gGameObject.prototype.Resize = function()
+{
+	var e = gGfx.GetElementParameters(this.gfx_element_id);
+	this.width = e.width;
+	this.height = e.height;
+}
 
 gGameObject.prototype.onCollideDefault = function(object, direction)
 {
@@ -56,20 +63,6 @@ gGameObject.prototype.onCollideDefault = function(object, direction)
 
 gGameObject.prototype.onCollide = function(object, direction)
 {
-	if (object.gfx_element_id == 5 || object.gfx_element_id == 4)
-	{
-		this.dead = 1;
-		this.speed_x = 0;
-		this.gfx_element_id = 6;
-		this.height = 4;
-	}
-	
-	if (object.gfx_element_id == 4)
-	{
-		// no more collision handling, do not stop the player
-		return;
-	}
-	
 	this.onCollideDefault(object, direction);
 }
 
@@ -214,51 +207,33 @@ var gGame = {
 	screen_x: 0,
 	screen_y: 0,
 	
-	AddGameObject: function(pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters)
+	AddGameObject: function(pos_x, pos_y, base_object, count_x, count_y)
 	{
-		var count_x = 1;
-		var count_y = 1;
-		
-		if (add_parameters)
-		{
-			count_x = add_parameters[0];
-			count_y = add_parameters[1];
-		}
+		count_x = count_x ? count_x : 1;
+		count_y = count_y ? count_y : 1;
 		
 		for (var x=0; x<count_x; x++)
 		{
 			for (var y=0; y<count_y; y++)
 			{
-				var element_parameters = gGfx.GetElementParameters(gfx_element_id);
+				var obj = new base_object();
+				obj.Resize();
 				
-				var obj = new gGameObject(pos_x, pos_y, element_parameters.width, element_parameters.height, gfx_element_id);
-				
-				obj.pos_x = pos_x + element_parameters.width * x;
-				obj.pos_y = pos_y + element_parameters.height * y;
-				
-				if (obj_parameters)
-				{
-					for (var key in obj_parameters)
-					{
-						obj[key] = obj_parameters[key];
-					}
-				}
+				obj.pos_x = pos_x + obj.width * x;
+				obj.pos_y = pos_y + obj.height * y;
 				
 				this.game_objects.push(obj);
 			}
 		}
+		
+		return obj;
 	},
 	
 	Restart: function()
 	{
-		this.game_objects = [];
 		this.screen_x = 0;
 		this.screen_y = 0;
-		
-		for (var i in g_game_objects)
-		{
-			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4]);
-		}
+		this.game_objects[0].Restart();
 	},
 	
 	Init: function(canvas)
@@ -269,6 +244,11 @@ var gGame = {
 		gGfx.PreRender();
 		
 		gGameInput.Attach();
+		
+		for (var i in g_game_objects)
+		{
+			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4]);
+		}
 		
 		this.Restart();
 	},

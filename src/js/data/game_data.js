@@ -19,25 +19,26 @@ var g_gfx_elements = {
 	3: "66666666 61111116 61611616 61111116 61611616 61166116 61111116 66666666",
 	4: "....3... ...3a... ..35a... .355a... .355a... 35555a.. 355555a. 3555555a",
 	5: "8.8.8.8.",
-	6: ".33.3. 3.88.3 ..338. 38.883"
+	6: ".33.3. 3.88.3 ..338. 38.883",
+	7: "."
 };
 
 var g_gfx_backgrounds = {
 };
 
 var g_game_objects = [
-	// pos_x, pos_y, gfx_element_id, add_parameters, obj_parameters
+	// pos_x, pos_y, game_object, count_x, count_y
 	
 	// first object must be the player
-	[ 16,  96,  1, null, { can_move: 1, gravity_enabled: 1, speed_y: -8 } ],
+	[ 16,  96,  gGameObjectPlayer ],
 	
-	[   0,  112, 0, [ 6, 1 ] ],
-	[  64,  112, 0, [ 3, 1 ] ],
-	[  96,  88, 0, [ 3, 1 ] ],
-	[  32,  104, 0 ],
-	[  0,  104, 0 ],
-	[ 104,   64, 3 ],
-	[ 128,  144, 0, [ 20, 1 ] ],
-	[ 128,  136, 4 ],
-	[ -64,  256, 5, [ 100, 1 ] ]
+	[   0,  112, gGameObjectWall, 6, 1 ],
+	[  64,  112, gGameObjectWall, 3, 1 ],
+	[  96,   88, gGameObjectWall, 3, 1 ],
+	[  32,  104, gGameObjectWall ],
+	[   0,  104, gGameObjectWall ],
+	[ 104,   64, gGameObjectBox ],
+	[ 128,  144, gGameObjectWall, 20, 1 ],
+	[ 128,  136, gGameObjectBlade ],
+	[ -64,  256, gGameObjectBorder, 100, 1 ]
 ];
