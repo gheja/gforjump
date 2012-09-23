@@ -29,6 +29,11 @@ gGameObject.prototype.Resize = function()
 	this.height = e.height;
 }
 
+gGameObject.prototype.Kill = function()
+{
+	this.dead = 1;
+}
+
 gGameObject.prototype.onCollideDefault = function(object, direction)
 {
 	//  the ... side of "object" hit "this"
