@@ -31,32 +31,27 @@ gGameObject.prototype.Resize = function()
 
 gGameObject.prototype.onCollideDefault = function(object, direction)
 {
-	if (!this.can_move)
-	{
-		return;
-	}
-	
-	//  the ... side of "this" hit "object"
+	//  the ... side of "object" hit "this"
 	switch (direction)
 	{
 		case 0: // top
-			this.pos_y = object.pos_y + object.height;
-			this.speed_y = object.speed_y;
+			object.pos_y = this.pos_y + this.height;
+			object.speed_y = Math.max(this.speed_y, object.speed_y);
 		break;
 		
 		case 1: // right
-			this.pos_x = object.pos_x - this.width;
-			this.speed_x = object.speed_x;
+			object.pos_x = this.pos_x - object.width;
+			object.speed_x = this.speed_x;
 		break;
 		
 		case 2: // bottom
-			this.pos_y = object.pos_y - this.height;
-			this.speed_y = object.speed_y;
+			object.pos_y = this.pos_y - object.height;
+			object.speed_y = Math.min(this.speed_y, object.speed_y);
 		break;
 		
 		case 3: // left
-			this.pos_x = object.pos_x + object.width;
-			this.speed_x = object.speed_x;
+			object.pos_x = this.pos_x + this.width;
+			object.speed_x = this.speed_x;
 		break;
 	}
 }
@@ -73,10 +68,11 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 		this.speed_y += 1;
 	}
 	
-	this.collision_left = 0;
-	this.collision_right = 0;
 	this.collision_top = 0;
+	this.collision_right = 0;
 	this.collision_bottom = 0;
+	this.collision_left = 0;
+	this.collision = 0;
 	
 	for (var i in objects)
 	{
@@ -87,13 +83,11 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 		}
 		
 		// check if the ... side of "this" hits "obj"
-		
 		// top
 		if (this.pos_y >= obj.pos_y + obj.height && this.pos_y + this.speed_y < obj.pos_y + obj.height &&
 			this.pos_x < obj.pos_x + obj.width && this.pos_x + this.width > obj.pos_x)
 		{
-			this.onCollide(obj, 0);
-			obj.onCollide(this, 2);
+			obj.onCollide(this, 0);
 			this.collision_top = 1;
 		}
 		
@@ -101,8 +95,7 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 		if (this.pos_y + this.height <= obj.pos_y && this.pos_y + this.height + this.speed_y > obj.pos_y &&
 			this.pos_x < obj.pos_x + obj.width && this.pos_x + this.width > obj.pos_x)
 		{
-			this.onCollide(obj, 2);
-			obj.onCollide(this, 0);
+			obj.onCollide(this, 2);
 			this.collision_bottom = 1;
 		}
 		
@@ -111,7 +104,6 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 			((this.pos_y < obj.pos_y + obj.height && this.pos_y + this.height > obj.pos_y) ||
 			(this.pos_y < obj.pos_y && this.pos_y + this.height > obj.pos_y + obj.height)))
 		{
-			this.onCollide(obj, 3);
 			obj.onCollide(this, 3);
 			this.collision_left = 1;
 		}
@@ -121,7 +113,6 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 			((this.pos_y < obj.pos_y + obj.height && this.pos_y + this.height > obj.pos_y) ||
 			(this.pos_y < obj.pos_y && this.pos_y + this.height > obj.pos_y + obj.height)))
 		{
-			this.onCollide(obj, 1);
 			obj.onCollide(this, 1);
 			this.collision_right = 1;
 		}

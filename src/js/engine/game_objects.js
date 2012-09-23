@@ -76,10 +76,7 @@ var gGameObjectBorder = function()
 gGameObjectBorder.prototype = new gGameObject();
 gGameObjectBorder.prototype.onCollide = function(object, direction)
 {
-	if (object instanceof gGameObjectPlayer)
-	{
-		object.Kill();
-	}
+	object.Kill();
 }
 
 
@@ -91,7 +88,7 @@ var gGameObjectBlade = function()
 gGameObjectBlade.prototype = new gGameObject();
 gGameObjectBlade.prototype.onCollide = function(object, direction)
 {
-	if (object instanceof gGameObjectPlayer)
+	if (object.speed_y > 0)
 	{
 		object.Kill();
 	}
