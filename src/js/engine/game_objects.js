@@ -47,6 +47,10 @@ var gGameObjectPlayerCorpse = function()
 	return this;
 }
 gGameObjectPlayerCorpse.prototype = new gGameObject();
+gGameObjectPlayerCorpse.prototype.onCollide = function(object, direction)
+{
+	return;
+}
 
 
 
@@ -77,6 +81,7 @@ gGameObjectBorder.prototype = new gGameObject();
 gGameObjectBorder.prototype.onCollide = function(object, direction)
 {
 	object.Kill();
+	this.onCollideDefault(object, direction);
 }
 
 
