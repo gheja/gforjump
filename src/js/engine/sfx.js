@@ -120,7 +120,7 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 				a[i] += this.osc3_function(freq * this.osc3_mod, i / sample_rate) * this.osc3_volume;
 			}
 			
-			a[i] *= volume2;
+			a[i] *= volume2 * 0.5; // lower the volume, try to avoid clipping when mixing
 		}
 		
 		return a;
