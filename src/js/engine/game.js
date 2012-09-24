@@ -211,7 +211,7 @@ var gGame = {
 	screen_y: 0,
 	shake_ticks: 0,
 	
-	AddGameObject: function(pos_x, pos_y, base_object, count_x, count_y)
+	AddGameObject: function(pos_x, pos_y, base_object, count_x, count_y, parameters)
 	{
 		count_x = count_x ? count_x : 1;
 		count_y = count_y ? count_y : 1;
@@ -222,6 +222,14 @@ var gGame = {
 			{
 				var obj = new base_object();
 				obj.Resize();
+				
+				if (parameters)
+				{
+					for (var key in parameters)
+					{
+						obj[key] = parameters[key];
+					}
+				}
 				
 				obj.pos_x = pos_x + obj.width * x;
 				obj.pos_y = pos_y + obj.height * y;
@@ -251,7 +259,7 @@ var gGame = {
 		
 		for (var i in g_game_objects)
 		{
-			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4]);
+			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4], g_game_objects[i][5]);
 		}
 		
 		this.Restart();
