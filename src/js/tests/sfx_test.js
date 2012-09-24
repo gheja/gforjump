@@ -12,11 +12,12 @@ var instrument_base = new gSfxInstrument(
 	0.3, // release time (sec)
 	0.9, // attack volume (0..1)
 	0.2, // (sustained) volume (0..1)
-	0.985, // osc2 freq modulation (optional)
-	0.05, // osc2 volume (optional)
-	1.015, // osc3 freq modulation (optional)
-	0.05,  // osc3 volume (optional)
-	0.5
+	gSfxOsc.fn_square,
+	0.5, // osc2 freq modulation (optional)
+	0.5, // osc2 volume (optional)
+	gSfxOsc.fn_saw1,
+	2.0, // osc3 freq modulation (optional)
+	0.8  // osc3 volume (optional)
 );
 
 function SfxTestNote(note)
@@ -42,10 +43,12 @@ function SfxTestDemo()
 		0.3, // release time (sec)
 		0.9, // attack volume (0..1)
 		0.3, // (sustained) volume (0..1)
+		gSfxOsc.fn_saw1,
 		0.9, // osc2 freq modulation (optional)
 		0.1, // osc2 volume (optional)
-		1.1, // osc3 freq modulation (optional)
-		0.1  // osc3 volume (optional)
+		gSfxOsc.fn_square,
+		0.9, // osc3 freq modulation (optional)
+		0.2  // osc3 volume (optional)
 	);
 	
 	var instrument1 = new gSfxInstrument(
@@ -55,8 +58,10 @@ function SfxTestDemo()
 		0.5, // release time (sec)
 		0.3, // attack volume (0..1)
 		0.1, // (sustained) volume (0..1)
+		gSfxOsc.fn_saw1,
 		0.8, // osc2 freq modulation (optional)
 		0.05, // osc2 volume (optional)
+		gSfxOsc.fn_saw1,
 		0.6, // osc3 freq modulation (optional)
 		0.05  // osc3 volume (optional)
 	);

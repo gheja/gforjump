@@ -50,7 +50,7 @@ var gSfxOsc =
 
 
 
-var gSfxInstrument = function(osc1_function, attack, decay, release, volume_attack, volume, osc2_mod, osc2_volume, osc3_mod, osc3_volume, noise_volume)
+var gSfxInstrument = function(osc1_function, attack, decay, release, volume_attack, volume, osc2_function, osc2_mod, osc2_volume, osc3_function, osc3_mod, osc3_volume, noise_volume)
 {
 	this.osc1_function = osc1_function;
 	this.attack = attack;
@@ -58,10 +58,10 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 	this.release = release;
 	this.volume = volume;
 	this.volume_attack = volume_attack;
-	this.osc2_function = this.osc1_function;
+	this.osc2_function = osc2_function;
 	this.osc2_mod = osc2_mod;
 	this.osc2_volume = osc2_volume;
-	this.osc3_function = this.osc1_function;
+	this.osc3_function = osc3_function;
 	this.osc3_mod = osc3_mod;
 	this.osc3_volume = osc3_volume;
 	this.noise_volume = noise_volume;
