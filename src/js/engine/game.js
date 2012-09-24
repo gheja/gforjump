@@ -13,11 +13,13 @@ var gGameObject = function(gfx_element_id)
 	this.can_collide = 1;
 	this.speed_x = 0;
 	this.speed_y = 0;
+	this.rotation = 0;
 	this.collision_top = 0;
 	this.collision_right = 0;
 	this.collision_bottom = 0;
 	this.collision_left = 0;
 	this.collision = 0;
+	this.trash_flag = 0;
 	
 	return this;
 };
@@ -207,6 +209,7 @@ var gGame = {
 	game_input: null,
 	screen_x: 0,
 	screen_y: 0,
+	shake_ticks: 0,
 	
 	AddGameObject: function(pos_x, pos_y, base_object, count_x, count_y)
 	{
@@ -227,7 +230,7 @@ var gGame = {
 			}
 		}
 		
-		return obj;
+		return this.game_objects[this.game_objects.length - 1];
 	},
 	
 	Restart: function()
@@ -287,6 +290,28 @@ var gGame = {
 			}
 		}
 		
+		var trashed = 1;
+		while (trashed)
+		{
+			trashed = 0;
+			for (var i in this.game_objects)
+			{
+				if (!this.game_objects[i].trash_flag)
+				{
+					continue;
+				}
+				
+				this.game_objects[i].trash_flag = 0;
+				this.game_objects[i].gfx_element_id = 7;
+				this.game_objects[i].pos_y = -1000;
+				
+//				delete this.game_objects[i];
+//				trashed = 1;
+//				break;
+			}
+		}
+		
+		
 		// gGfx.RenderFrame();
 		for (var i in this.game_objects)
 		{
@@ -314,8 +339,10 @@ var gGame = {
 		for (var i in this.game_objects)
 		{
 			obj = this.game_objects[i];
-			
-			gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y));
+			if (!obj.trash_flag)
+			{
+				gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y), obj.rotation);
+			}
 		}
 	}
 };

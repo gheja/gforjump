@@ -20,7 +20,8 @@ var g_gfx_elements = {
 	4: "....3... ...3a... ..35a... .355a... .355a... 35555a.. 355555a. 3555555a",
 	5: "8.8.8.8.",
 	6: ".33.3. 3.88.3 ..338. 38.883",
-	7: "."
+	7: ".",
+	8: "11111111 11611161 16161616 11111111 11666661 11166611 11116111 11111111",
 };
 
 var g_gfx_backgrounds = {
@@ -37,7 +38,7 @@ var g_game_objects = [
 	[  96,   88, gGameObjectWall, 3, 1 ],
 	[  32,  104, gGameObjectWall ],
 	[   0,  104, gGameObjectWall ],
-	[ 104,   64, gGameObjectBox ],
+	[ 104,   64, gGameObjectBladeBox ],
 	[ 128,  144, gGameObjectWall, 20, 1 ],
 	[ 128,  136, gGameObjectBlade ],
 	[ -64,  256, gGameObjectBorder, 100, 1 ]

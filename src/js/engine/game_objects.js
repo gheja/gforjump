@@ -63,13 +63,51 @@ gGameObjectWall.prototype = new gGameObject();
 
 
 
-var gGameObjectBox = function()
+var gGameObjectBladeBox = function()
 {
 	this.gfx_element_id = 3;
+	this.ticks_left = 0;
+	this.blades = [];
 	return this;
 }
-gGameObjectBox.prototype = new gGameObject();
-
+gGameObjectBladeBox.prototype = new gGameObject();
+gGameObjectBladeBox.prototype.onCollide = function(object, direction)
+{
+	if (!object.dead)
+	{
+		if (this.ticks_left == 0)
+		{
+			this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, gGameObjectBlade);
+			this.blades[1] = gGame.AddGameObject(this.pos_x+8, this.pos_y,   gGameObjectBlade);
+			this.blades[1].rotation = 1;
+			this.blades[2] = gGame.AddGameObject(this.pos_x,   this.pos_y+8, gGameObjectBlade);
+			this.blades[2].rotation = 2;
+			this.blades[3] = gGame.AddGameObject(this.pos_x-8, this.pos_y,   gGameObjectBlade);
+			this.blades[3].rotation = 3;
+		}
+		this.gfx_element_id = 8;
+		this.ticks_left = 10;
+		object.Kill();
+	}
+	
+	this.onCollideDefault(object, direction);
+}
+gGameObjectBladeBox.prototype.Tick = function(objects)
+{
+	if (this.ticks_left > 0)
+	{
+		if (this.ticks_left == 1)
+		{
+			this.blades[0].trash_flag = 1;
+			this.blades[1].trash_flag = 1;
+			this.blades[2].trash_flag = 1;
+			this.blades[3].trash_flag = 1;
+			this.gfx_element_id = 3;
+		}
+		this.ticks_left--;
+	}
+	this.DefaultTick(objects);
+}
 
 
 var gGameObjectBorder = function()
@@ -93,7 +131,12 @@ var gGameObjectBlade = function()
 gGameObjectBlade.prototype = new gGameObject();
 gGameObjectBlade.prototype.onCollide = function(object, direction)
 {
-	if (object.speed_y > 0)
+	if (
+		(this.rotation == 0 && object.speed_y > 0) ||
+		(this.rotation == 1 && object.speed_x < 0) ||
+		(this.rotation == 2 && object.speed_y < 0) ||
+		(this.rotation == 3 && object.speed_x > 0)
+	)
 	{
 		object.Kill();
 	}
