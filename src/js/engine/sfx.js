@@ -50,7 +50,7 @@ var gSfxOsc =
 
 
 
-var gSfxInstrument = function(osc1_function, attack, decay, release, volume_attack, volume, osc2_mod, osc2_volume, osc3_mod, osc3_volume)
+var gSfxInstrument = function(osc1_function, attack, decay, release, volume_attack, volume, osc2_mod, osc2_volume, osc3_mod, osc3_volume, noise_volume)
 {
 	this.osc1_function = osc1_function;
 	this.attack = attack;
@@ -64,6 +64,7 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 	this.osc3_function = this.osc1_function;
 	this.osc3_mod = osc3_mod;
 	this.osc3_volume = osc3_volume;
+	this.noise_volume = noise_volume;
 	
 	/* calculates wave data (float, -1..1) */
 	this.DoIt = function(freq, length)
@@ -118,6 +119,11 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 			if (this.osc3_mod)
 			{
 				a[i] += this.osc3_function(freq * this.osc3_mod, i / sample_rate) * this.osc3_volume;
+			}
+			
+			if (this.noise_volume)
+			{
+				a[i] += (Math.random() - 0.5) * 2 * this.noise_volume;
 			}
 			
 			a[i] *= volume2 * 0.5; // lower the volume, try to avoid clipping when mixing
