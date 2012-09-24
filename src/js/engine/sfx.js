@@ -147,7 +147,7 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 				samples[i] += (Math.random() - 0.5) * 2 * this.fx_noise_volume;
 			}
 			
-			/* lower the volume, try to avoid clipping when mixing */
+			/* apply calculated volume and lower it further to avoid clipping when mixing */
 			samples[i] *= volume2 * 0.5; 
 		}
 		
