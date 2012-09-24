@@ -50,7 +50,7 @@ var gSfxOsc =
 
 
 
-var gSfxInstrument = function(osc1_function, attack, decay, release, volume_attack, volume, fx_chip_level, fx_chip_x, osc2_function, osc2_mod, osc2_volume, osc3_function, osc3_mod, osc3_volume, noise_volume)
+var gSfxInstrument = function(osc1_function, attack, decay, release, volume_attack, volume, fx_chip_level, fx_chip_x, osc2_function, osc2_mod, osc2_volume, osc3_function, osc3_mod, osc3_volume, fx_noise_volume)
 {
 	this.osc1_function = osc1_function;
 	this.attack = attack;
@@ -64,24 +64,25 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 	this.osc3_function = osc3_function;
 	this.osc3_mod = osc3_mod;
 	this.osc3_volume = osc3_volume;
-	this.noise_volume = noise_volume;
+	this.fx_noise_volume = fx_noise_volume;
 	this.fx_chip_level = fx_chip_level;
 	this.fx_chip_x = fx_chip_x;
 	this.fx_chip_mods = [ 1.0, 0.5, 1.0, 0.6, 1.0, 0.7, 1.0, 0.8, 1.0, 0.7, 1.0, 0.6 ];
+	this.sample_rate = 44100; // samples per second
 	
 	/* calculates wave data (float, -1..1) */
 	this.DoIt = function(base_freq, length)
 	{
-		var sample_rate = 44100;
 		var volume2 = 0;
 		var freq = base_freq;
 		
-		// http://en.wikipedia.org/wiki/Synthesizer#ADSR_envelope
+		var samples = new Array();
 		
-		var attack_s  = sample_rate * this.attack;
-		var decay_s   = sample_rate * this.decay;
-		var sustain_s = Math.max(sample_rate * (length - this.attack - this.decay), 0);
-		var release_s = sample_rate * this.release;
+		/* ADSR Envelope - see http://en.wikipedia.org/wiki/Synthesizer#ADSR_envelope */
+		var attack_s  = this.sample_rate * this.attack;
+		var decay_s   = this.sample_rate * this.decay;
+		var sustain_s = Math.max(this.sample_rate * (length - this.attack - this.decay), 0);
+		var release_s = this.sample_rate * this.release;
 		
 		var ad_s = attack_s + decay_s;
 		var ads_s = attack_s + decay_s + sustain_s;
@@ -89,13 +90,12 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 		
 		var length_s = attack_s + decay_s + sustain_s + release_s;
 		
-		var a = new Array();
-		
-		// chiptunize FX parameters
-		var fx_chip_sample_step = Math.floor(sample_rate / this.fx_chip_x);
+		/* FX chiptunize parameters */
+		var fx_chip_sample_step = Math.floor(this.sample_rate / this.fx_chip_x);
 		
 		for (var i=0; i<length_s; i++)
 		{
+			/* volume calculation based on ADSR Envelope */
 			if (i < attack_s)
 			{
 				// j == i
@@ -117,6 +117,7 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 				volume2 = (1 - j / release_s) * this.volume;
 			}
 			
+			/* FX chip */
 			if (this.fx_chip_level != 0)
 			{
 				if (i % fx_chip_sample_step == 0)
@@ -125,27 +126,32 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 				}
 			}
 			
-			a[i] = this.osc1_function(freq, i / sample_rate);
+			/* OSC1 render */
+			samples[i] = this.osc1_function(freq, i / this.sample_rate);
 			
+			/* OSC2 render */
 			if (this.osc2_mod)
 			{
-				a[i] += this.osc2_function(freq * this.osc2_mod, i / sample_rate) * this.osc2_volume;
+				samples[i] += this.osc2_function(freq * this.osc2_mod, i / this.sample_rate) * this.osc2_volume;
 			}
 			
+			/* OSC3 render */
 			if (this.osc3_mod)
 			{
-				a[i] += this.osc3_function(freq * this.osc3_mod, i / sample_rate) * this.osc3_volume;
+				samples[i] += this.osc3_function(freq * this.osc3_mod, i / this.sample_rate) * this.osc3_volume;
 			}
 			
-			if (this.noise_volume)
+			/* FX noise */
+			if (this.fx_noise_volume)
 			{
-				a[i] += (Math.random() - 0.5) * 2 * this.noise_volume;
+				samples[i] += (Math.random() - 0.5) * 2 * this.fx_noise_volume;
 			}
 			
-			a[i] *= volume2 * 0.5; // lower the volume, try to avoid clipping when mixing
+			/* lower the volume, try to avoid clipping when mixing */
+			samples[i] *= volume2 * 0.5; 
 		}
 		
-		return a;
+		return samples;
 	}
 	
 };
