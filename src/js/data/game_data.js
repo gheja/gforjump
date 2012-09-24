@@ -39,7 +39,15 @@ var g_game_objects = [
 	[  32,  104, gGameObjectWall ],
 	[   0,  104, gGameObjectWall ],
 	[ 104,   64, gGameObjectBladeBox ],
-	[ 128,  144, gGameObjectWall, 20, 1 ],
+	[ 128,  144, gGameObjectWall, 22, 1 ],
 	[ 128,  136, gGameObjectBlade ],
+	[ 288,  136, gGameObjectBlade ],
+	[ 296,  136, gGameObjectBlade ],
+	[ 246,  128, gGameObjectWall, 5, 2 ],
+	[ 200,  112, gGameObjectWall, 3, 1 ],
+	[ 192,  112, gGameObjectBladeBox ],
+	[ 160,   88, gGameObjectWall, 3, 1 ],
+	[ 168,   64, gGameObjectWall, 5, 1 ],
+	[ 168,   72, gGameObjectBlade, 1, 1, { rotation: 2 } ],
 	[ -64,  256, gGameObjectBorder, 100, 1 ]
 ];
