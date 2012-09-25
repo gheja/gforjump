@@ -9,6 +9,45 @@ function clamp2(b)
 }
 
 
+var gSfxPattern = {
+	sample_rate: 44100,
+	base_freq: 1,
+	samples: [],
+	pos1: 0,
+	pos2: 0,
+	pos3: 0,
+	
+	RenderFromOsc: function(osc_fn)
+	{
+		gSfxPattern.base_freq = 1;
+		for (var i=0; i<this.sample_rate; i++)
+		{
+			gSfxPattern.samples[i] = osc_fn(1, i/gSfxPattern.sample_rate);
+		}
+	},
+	
+	fn1: function(freq, t)
+	{
+		gSfxPattern.pos1 = (gSfxPattern.pos1 + Math.floor(freq / gSfxPattern.base_freq)) % gSfxPattern.sample_rate;
+		
+		return gSfxPattern.samples[gSfxPattern.pos1];
+	},
+	
+	fn2: function(freq, t)
+	{
+		gSfxPattern.pos2 = (gSfxPattern.pos2 + Math.floor(freq / gSfxPattern.base_freq)) % gSfxPattern.sample_rate;
+		
+		return gSfxPattern.samples[gSfxPattern.pos2];
+	},
+	
+	fn3: function(freq, t)
+	{
+		gSfxPattern.pos3 = (gSfxPattern.pos3 + Math.floor(freq / gSfxPattern.base_freq)) % gSfxPattern.sample_rate;
+		
+		return gSfxPattern.samples[gSfxPattern.pos3];
+	}
+};
+
 
 var gSfxOsc =
 {
