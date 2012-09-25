@@ -1,0 +1,48 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>g / gfx test</title>
+		<style type="text/css">
+			body
+			{
+				background: #111111;
+				margin: 0;
+				padding: 0;
+				color: #ffffff;
+				font-family: Tahoma;
+				font-size: 9pt;
+			}
+			div#content
+			{
+				text-align: center;
+				width: 640px;
+				margin: 40px auto;
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/engine/gfx.js" type="text/javascript"></script>
+		<script src="js/engine/sfx_riffwave.js" type="text/javascript"></script>
+		<script src="js/engine/sfx_notes.js" type="text/javascript"></script>
+		<script src="js/engine/sfx.js" type="text/javascript"></script>
+		<script src="js/engine/game.js" type="text/javascript"></script>
+		<script src="js/engine/game_objects.js" type="text/javascript"></script>
+		
+		<script src="js/data/game_data.js" type="text/javascript"></script>
+		
+		<div id="content">
+			<canvas id="canvas0" width="640" height="480"></canvas>
+			
+			<p><b>Arrow keys</b>: move | <b>Shift</b>: run | <b>Space</b>: jump | <b>M</b>: mute | <b>Fun</b>: have some :)</p>
+		</div>
+		
+		<script type="text/javascript">
+			window.onload = function()
+			{
+				gGame.Init("canvas0");
+				gGame.Run();
+			}
+		</script>
+	</body>
+</html>

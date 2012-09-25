@@ -257,12 +257,18 @@ var gGame = {
 		
 		gGameInput.Attach();
 		
-		for (var i in g_game_objects)
+		var a = g_game_objects;
+		for (var i in a)
 		{
-			this.AddGameObject(g_game_objects[i][0], g_game_objects[i][1], g_game_objects[i][2], g_game_objects[i][3], g_game_objects[i][4], g_game_objects[i][5]);
+			this.AddGameObject(a[i][0], a[i][1], a[i][2], a[i][3], a[i][4], a[i][5]);
 		}
 		
 		this.Restart();
+	},
+	
+	Run: function()
+	{
+		setInterval(function() { gGame.Tick(); }, 1000 / g_game_settings.fps);
 	},
 	
 	Tick: function()

@@ -1,3 +1,7 @@
+var g_game_settings = {
+	fps: 30
+};
+
 var g_gfx_palette = {
 	0: "#0ac",
 	1: "#d80",
