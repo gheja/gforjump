@@ -11,13 +11,37 @@ function v(obj)
 }
 
 var instrument_base = null;
+// var pattern = new gSfxPattern();
+gSfxPattern.RenderFromOsc(gSfxOsc.fn_saw1);
 
 function SfxTestUpdateInstrument()
 {
 	var fns = [ null, gSfxOsc.fn_square, gSfxOsc.fn_triangle, gSfxOsc.fn_saw1, gSfxOsc.fn_saw2 ];
+	var fns2 = [ "null", "gSfxOsc.fn_square", "gSfxOsc.fn_triangle", "gSfxOsc.fn_saw1", "gSfxOsc.fn_saw2" ];
+	
+	document.getElementById("instrument_code").value = "new gSfxInstrument(" + 
+		fns2[v('osc1_fn')] + ", " +
+		v('adsr_a') + ", " + // attack time (sec)
+		v('adsr_d') + ", " + // decay time (sec)
+		v('adsr_r') + ", " + // release time (sec)
+		v('volume_attack') + ", " + // attack volume (0..1)
+		v('volume') + ", " + // (sustained) volume (0..1)
+		v('fx_chip_level') + ", " +   // FX chip: level
+		v('fx_chip_x') + ", " + // FX chip: x
+		
+		fns2[v('osc2_fn')] + ", " +
+		v('osc2_freq') + ", " + // osc2 freq modulation (optional)
+		v('osc2_volume') + ", " + // osc2 volume (optional)
+		
+		fns2[v('osc3_fn')] + ", " +
+		v('osc3_freq') + ", " + // osc3 freq modulation (optional)
+		v('osc3_volume') + ", " +  // osc3 volume (optional)
+		
+		v('fx_noise_volume') + ");";  // osc3 volume (optional)
 	
 	instrument_base = new gSfxInstrument(
-		fns[v('osc1_fn')],
+		gSfxPattern.fn1,
+//		fns[v('osc1_fn')],
 		v('adsr_a'), // attack time (sec)
 		v('adsr_d'), // decay time (sec)
 		v('adsr_r'), // release time (sec)
@@ -26,11 +50,13 @@ function SfxTestUpdateInstrument()
 		v('fx_chip_level'),   // FX chip: level
 		v('fx_chip_x'), // FX chip: x
 		
-		fns[v('osc2_fn')],
+		gSfxPattern.fn2,
+//		fns[v('osc2_fn')],
 		v('osc2_freq'), // osc2 freq modulation (optional)
 		v('osc2_volume'), // osc2 volume (optional)
 		
-		fns[v('osc3_fn')],
+		gSfxPattern.fn3,
+//		fns[v('osc3_fn')],
 		v('osc3_freq'), // osc3 freq modulation (optional)
 		v('osc3_volume'),  // osc3 volume (optional)
 		
