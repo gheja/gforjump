@@ -3,24 +3,31 @@
 		<meta charset="utf-8" />
 		<title>g / sfx test</title>
 		<style type="text/css">
-			.a,
-			.b
+			.white,
+			.black
 			{
+				text-align: left;
+				font-size: 8pt;
 				display: block;
 				float: left;
-				height: 200px;
-				width: 40px;
-				border: 1px solid #888888;
+				height: 140px;
+				width: 30px;
+				border: 1px solid #aaaaaa;
 			}
-			.a
+			.white
 			{
 				background: #ffffff;
 				color: #000000;
 			}
-			.b
+			.black
 			{
 				background: #000000;
 				color: #ffffff;
+				position: relative;
+				left: -10px;
+				width: 20px;
+				height: 100px;
+				margin: 0 -40px 0 0;
 			}
 			.c
 			{
@@ -32,12 +39,46 @@
 				text-decoration: none;
 			}
 			
+			.box
+			{
+				padding: 20px;
+				float: left;
+			}
+			input[type=range]
+			{
+				width: 400px;
+			}
+			
+			input[type=text]
+			{
+				width: 40px;
+				border: none;
+			}
+			
 			.clearer
 			{
 				clear: both;
 				float: none;
 			}
 		</style>
+		
+		<script type="text/javascript">
+			function update_values()
+			{
+				var elements = document.getElementsByTagName("input");
+				for (var i in elements)
+				{
+					if (elements[i].type != "range")
+					{
+						continue;
+					}
+					
+					var input = document.getElementById(elements[i].id + "_x");
+					input.value = elements[i].value;
+				}
+				SfxTestUpdateInstrument();
+			}
+		</script>
 	</head>
 	<body>
 		<script src="js/engine/sfx_riffwave.js" type="text/javascript"></script>
@@ -46,34 +87,136 @@
 		
 		<script src="js/tests/sfx_test.js" type="text/javascript"></script>
 		
-		<a href="#" onMouseDown="SfxTestNote(C3); return false" class="a">C</a> 
-		<a href="#" onMouseDown="SfxTestNote(CS3); return false" class="b">C#</a> 
-		<a href="#" onMouseDown="SfxTestNote(D3); return false" class="a">D</a> 
-		<a href="#" onMouseDown="SfxTestNote(DS3); return false" class="b">D#</a> 
-		<a href="#" onMouseDown="SfxTestNote(E3); return false" class="a">E</a> 
-		<a href="#" onMouseDown="SfxTestNote(F3); return false" class="a">F</a> 
-		<a href="#" onMouseDown="SfxTestNote(FS3); return false" class="b">F#</a> 
-		<a href="#" onMouseDown="SfxTestNote(G3); return false" class="a">G</a> 
-		<a href="#" onMouseDown="SfxTestNote(GS3); return false" class="b">G#</a> 
-		<a href="#" onMouseDown="SfxTestNote(A3); return false" class="a">A</a> 
-		<a href="#" onMouseDown="SfxTestNote(AS3); return false" class="b">A#</a> 
-		<a href="#" onMouseDown="SfxTestNote(B3); return false" class="a">B</a> 
+		<a href="#" onMouseDown="SfxTestNote(C3); return false" class="white">C3</a> 
+		<a href="#" onMouseDown="SfxTestNote(CS3); return false" class="black">C#3</a> 
+		<a href="#" onMouseDown="SfxTestNote(D3); return false" class="white">D3</a> 
+		<a href="#" onMouseDown="SfxTestNote(DS3); return false" class="black">D#3</a> 
+		<a href="#" onMouseDown="SfxTestNote(E3); return false" class="white">E3</a> 
+		<a href="#" onMouseDown="SfxTestNote(F3); return false" class="white">F3</a> 
+		<a href="#" onMouseDown="SfxTestNote(FS3); return false" class="black">F#3</a> 
+		<a href="#" onMouseDown="SfxTestNote(G3); return false" class="white">G3</a> 
+		<a href="#" onMouseDown="SfxTestNote(GS3); return false" class="black">G#3</a> 
+		<a href="#" onMouseDown="SfxTestNote(A3); return false" class="white">A3</a> 
+		<a href="#" onMouseDown="SfxTestNote(AS3); return false" class="black">A#3</a> 
+		<a href="#" onMouseDown="SfxTestNote(B3); return false" class="white">B3</a> 
 		
-		<a href="#" onMouseDown="SfxTestNote(C4); return false" class="a">C</a> 
-		<a href="#" onMouseDown="SfxTestNote(CS4); return false" class="b">C#</a> 
-		<a href="#" onMouseDown="SfxTestNote(D4); return false" class="a">D</a> 
-		<a href="#" onMouseDown="SfxTestNote(DS4); return false" class="b">D#</a> 
-		<a href="#" onMouseDown="SfxTestNote(E4); return false" class="a">E</a> 
-		<a href="#" onMouseDown="SfxTestNote(F4); return false" class="a">F</a> 
-		<a href="#" onMouseDown="SfxTestNote(FS4); return false" class="b">F#</a> 
-		<a href="#" onMouseDown="SfxTestNote(G4); return false" class="a">G</a> 
-		<a href="#" onMouseDown="SfxTestNote(GS4); return false" class="b">G#</a> 
-		<a href="#" onMouseDown="SfxTestNote(A4); return false" class="a">A</a> 
-		<a href="#" onMouseDown="SfxTestNote(AS4); return false" class="b">A#</a> 
-		<a href="#" onMouseDown="SfxTestNote(B4); return false" class="a">B</a> 
+		<a href="#" onMouseDown="SfxTestNote(C4); return false" class="white">C4</a> 
+		<a href="#" onMouseDown="SfxTestNote(CS4); return false" class="black">C#4</a> 
+		<a href="#" onMouseDown="SfxTestNote(D4); return false" class="white">D4</a> 
+		<a href="#" onMouseDown="SfxTestNote(DS4); return false" class="black">D#4</a> 
+		<a href="#" onMouseDown="SfxTestNote(E4); return false" class="white">E4</a> 
+		<a href="#" onMouseDown="SfxTestNote(F4); return false" class="white">F4</a> 
+		<a href="#" onMouseDown="SfxTestNote(FS4); return false" class="black">F#4</a> 
+		<a href="#" onMouseDown="SfxTestNote(G4); return false" class="white">G4</a> 
+		<a href="#" onMouseDown="SfxTestNote(GS4); return false" class="black">G#4</a> 
+		<a href="#" onMouseDown="SfxTestNote(A4); return false" class="white">A4</a> 
+		<a href="#" onMouseDown="SfxTestNote(AS4); return false" class="black">A#4</a> 
+		<a href="#" onMouseDown="SfxTestNote(B4); return false" class="white">B4</a> 
+		
+		<a href="#" onMouseDown="SfxTestNote(C5); return false" class="white">C5</a> 
+		<a href="#" onMouseDown="SfxTestNote(CS5); return false" class="black">C#5</a> 
+		<a href="#" onMouseDown="SfxTestNote(D5); return false" class="white">D5</a> 
+		<a href="#" onMouseDown="SfxTestNote(DS5); return false" class="black">D#5</a> 
+		<a href="#" onMouseDown="SfxTestNote(E5); return false" class="white">E5</a> 
+		<a href="#" onMouseDown="SfxTestNote(F5); return false" class="white">F5</a> 
+		<a href="#" onMouseDown="SfxTestNote(FS5); return false" class="black">F#5</a> 
+		<a href="#" onMouseDown="SfxTestNote(G5); return false" class="white">G5</a> 
+		<a href="#" onMouseDown="SfxTestNote(GS5); return false" class="black">G#5</a> 
+		<a href="#" onMouseDown="SfxTestNote(A5); return false" class="white">A5</a> 
+		<a href="#" onMouseDown="SfxTestNote(AS5); return false" class="black">A#5</a> 
+		<a href="#" onMouseDown="SfxTestNote(B5); return false" class="white">B5</a> 
+		
+		<br class="clearer" />
+		
+		<div class="box">
+			<h2>OSC1</h2>
+			
+			Waveform:<br/>
+			<select id="osc1_fn" onchange="update_values();">
+				<option value="1">Square</option>
+				<option value="2" selected="selected">Triangle</option>
+				<option value="3">Saw1</option>
+				<option value="4">Saw2</option>
+			</select><br/>
+			
+			
+			
+			<h2>OSC2</h2>
+			
+			Waveform:<br/>
+			<select id="osc2_fn" onchange="update_values();">
+				<option value="1">Square</option>
+				<option value="2">Triangle</option>
+				<option value="3" selected="selected">Saw1</option>
+				<option value="4">Saw2</option>
+			</select><br/>
+			
+			Freq modulation (fraction):<br/>
+			<input type="range" id="osc2_freq" min="0" max="5" step="0.01" value="1.01" onchange="update_values();"><input type="text"  id="osc2_freq_x" readonly="readonly" value="0.3"><br/>
+			
+			Volume (fraction):<br/>
+			<input type="range" id="osc2_volume" min="0" max="1" step="0.05" value="0.25" onchange="update_values();"><input type="text" id="osc2_volume_x" readonly="readonly" value="0.3"><br/>
+			
+			
+			
+			<h2>OSC3</h2>
+			
+			Waveform:<br/>
+			<select id="osc3_fn" onchange="update_values();">
+				<option value="1">Square</option>
+				<option value="2">Triangle</option>
+				<option value="3" selected="selected">Saw1</option>
+				<option value="4">Saw2</option>
+			</select><br/>
+			
+			Freq modulation (fraction):<br/>
+			<input type="range" id="osc3_freq" min="0" max="5" step="0.01" value="0.99" onchange="update_values();"><input type="text" id="osc3_freq_x" readonly="readonly" value="0.3"><br/>
+			
+			Volume (fraction):<br/>
+			<input type="range" id="osc3_volume" min="0" max="1" step="0.05" value="0.25" onchange="update_values();"><input type="text" id="osc3_volume_x" readonly="readonly" value="0.3"><br/>
+		</div>
+		
+		<div class="box">
+			<h2>ADSR Envelope</h2>
+			Attack time (sec):<br/>
+			<input type="range" id="adsr_a" min="0" max="2" step="0.05" value="0.1" onchange="update_values();"><input type="text" id="adsr_a_x" readonly="readonly" value="0.3"><br/>
+			
+			Decay time (sec):<br/>
+			<input type="range" id="adsr_d" min="0" max="2" step="0.05" value="0.1" onchange="update_values();"><input type="text" id="adsr_d_x" readonly="readonly" value="0.3"><br/>
+			
+			Release time (sec):<br/>
+			<input type="range" id="adsr_r" min="0" max="2" step="0.05" value="0.3" onchange="update_values();"><input type="text" id="adsr_r_x" readonly="readonly" value="0.3"><br/>
+			
+			Attack volume (fraction):<br/>
+			<input type="range" id="volume_attack" min="0" max="1" step="0.05" value="0.9" onchange="update_values();"><input type="text" id="volume_attack_x" readonly="readonly" value="0.3"><br/>
+			
+			Sustained volume (fraction):<br/>
+			<input type="range" id="volume" min="0" max="1" step="0.05" value="0.3" onchange="update_values();"><input type="text" id="volume_x" readonly="readonly" value="0.3"><br/>
+			
+			
+			
+			<h2>FX: chip</h2>
+			
+			Level (fraction):<br/>
+			<input type="range" id="fx_chip_level" min="0" max="10" step="0.05" value="0" onchange="update_values();"><input type="text" id="fx_chip_level_x" readonly="readonly" value="0.3"><br/>
+			
+			X (integer):<br/>
+			<input type="range" id="fx_chip_x" min="0" max="100" step="1" value="40" onchange="update_values();"><input type="text" id="fx_chip_x_x" readonly="readonly" value="0.3"><br/>
+			
+			
+			
+			<h2>FX: noise</h2>
+			
+			Volume (fraction):<br/>
+			<input type="range" id="fx_noise_volume" min="0" max="1" step="0.05" value="0" onchange="update_values();"><input type="text" id="fx_noise_volume_x" readonly="readonly" value="0.3"><br/>
+		</div>
 		
 		<br class="clearer" />
 		
 		<a href="#" onMouseDown="SfxTestDemo(); return false" class="c">Demo</a> 
+		
+		<script type="text/javascript">
+			update_values();
+		</script>
 	</body>
 </html>
