@@ -4,6 +4,7 @@ var gGameObjectPlayer = function()
 	this.can_move = 1;
 	this.gravity_enabled = 1;
 	this.speed_y = -8;
+	this.ticks = 0;
 	return this;
 }
 gGameObjectPlayer.prototype =  new gGameObject();
@@ -35,6 +36,42 @@ gGameObjectPlayer.prototype.Kill = function()
 	
 	var x = gGame.AddGameObject(this.pos_x, this.pos_y, gGameObjectPlayerCorpse);
 	x.speed_y = this.speed_y;
+}
+gGameObjectPlayer.prototype.Tick = function(objects)
+{
+	if (!this.dead)
+	{
+		/* animation stuffs */
+		this.ticks++;
+		
+		var a = Math.floor(this.ticks / 4); // frameskip
+		
+		/* walking */
+		if (this.speed_x != 0)
+		{
+			this.gfx_mirror_x = (this.speed_x < 0) * 1; // parse as int
+			this.gfx_element_id = "p" + (a % 4 + 1);
+		}
+		/* falling */
+		else if (this.speed_y > 0)
+		{
+			this.gfx_element_id = "p" + ((a % 2) + 5);
+		}
+		/* standing */
+		else
+		{
+			/* turn around */
+			if (this.ticks % 220 == 0)
+			{
+				this.gfx_mirror_x = (this.gfx_mirror_x + 1) % 2;
+			}
+			
+			/* blinking */
+			this.gfx_element_id = "p0" + (a % 25 == 0 ? "x" : "");
+		}
+	}
+	
+	this.DefaultTick(objects);
 }
 
 
