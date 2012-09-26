@@ -107,8 +107,9 @@ var gGfx = {
 		gGfx.context.fillRect(0, 0, gGfx.width * gGfx.scale, gGfx.height * gGfx.scale);
 	},
 	
-	Draw: function(id, x, y, r)
+	Draw: function(id, x, y, r, mirror_x)
 	{
+		var dx = 0;
 		gGfx.context.save();
 		if (r == undefined || r == 0)
 		{
@@ -131,7 +132,12 @@ var gGfx = {
 			}
 			gGfx.context.rotate(r * 0.0174532925 * 90);
 		}
-		gGfx.context.drawImage(gGfx.rendered[id].cv, 0, 0);
+		if (mirror_x)
+		{
+			dx = - gGfx.rendered[id].cv.width;
+			gGfx.context.scale(-1, 1);
+		}
+		gGfx.context.drawImage(gGfx.rendered[id].cv, dx, 0);
 		gGfx.context.restore();
 	},
 	

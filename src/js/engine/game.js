@@ -20,6 +20,7 @@ var gGameObject = function(gfx_element_id)
 	this.collision_left = 0;
 	this.collision = 0;
 	this.trash_flag = 0;
+	this.gfx_mirror_x = 0;
 	
 	return this;
 };
@@ -355,7 +356,7 @@ var gGame = {
 			obj = this.game_objects[i];
 			if (!obj.trash_flag)
 			{
-				gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y), obj.rotation);
+				gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y), obj.rotation, obj.gfx_mirror_x);
 			}
 		}
 	}
