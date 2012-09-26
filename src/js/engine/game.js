@@ -317,7 +317,7 @@ var gGame = {
 				}
 				
 				this.game_objects[i].trash_flag = 0;
-				this.game_objects[i].gfx_element_id = 7;
+				this.game_objects[i].gfx_element_id = ".";
 				this.game_objects[i].pos_y = -1000;
 				
 //				delete this.game_objects[i];

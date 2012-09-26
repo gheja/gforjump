@@ -1,6 +1,6 @@
 var gGameObjectPlayer = function()
 {
-	this.gfx_element_id = 1;
+	this.gfx_element_id = "p0";
 	this.can_move = 1;
 	this.gravity_enabled = 1;
 	this.speed_y = -8;
@@ -20,7 +20,7 @@ gGameObjectPlayer.prototype.Restart = function()
 	this.pos_x = 16;
 	this.pos_y = 96;
 	this.dead = 0;
-	this.gfx_element_id = 1;
+	this.gfx_element_id = "p0";
 }
 gGameObjectPlayer.prototype.Kill = function()
 {
@@ -31,7 +31,7 @@ gGameObjectPlayer.prototype.Kill = function()
 	
 	this.dead = 1;
 	this.speed_x = 0;
-	this.gfx_element_id = 7;
+	this.gfx_element_id = ".";
 	
 	var x = gGame.AddGameObject(this.pos_x, this.pos_y, gGameObjectPlayerCorpse);
 	x.speed_y = this.speed_y;
