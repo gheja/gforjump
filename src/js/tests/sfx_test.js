@@ -11,16 +11,22 @@ function v(obj)
 }
 
 var instrument_base = null;
-var sample = new gSfxSample();
-sample.RenderFromOsc(gSfxOsc.fn_saw1);
+var sample1 = new gSfxSample();
+sample1.RenderFromOsc(gSfxOscSaw1);
+
+var sample2 = new gSfxSample();
+sample2.RenderFromOsc(gSfxOscSaw1);
+
+var sample3 = new gSfxSample();
+sample3.RenderFromOsc(gSfxOscSaw1);
 
 function SfxTestUpdateInstrument()
 {
-	var fns = [ null, gSfxOsc.fn_square, gSfxOsc.fn_triangle, gSfxOsc.fn_saw1, gSfxOsc.fn_saw2 ];
-	var fns2 = [ "null", "gSfxOsc.fn_square", "gSfxOsc.fn_triangle", "gSfxOsc.fn_saw1", "gSfxOsc.fn_saw2" ];
+	var fns = [ null, gSfxOscSquare, gSfxOscTriangle, gSfxOscSaw1, gSfxOscSaw2 ];
+	var fns2 = [ "null", "gSfxOscSquare", "gSfxOscTriangle", "gSfxOscSaw1", "gSfxOscSaw2" ];
 	
 	document.getElementById("instrument_code").value = "new gSfxInstrument(" + 
-//		fns2[v('osc1_fn')] + ", " +
+		fns2[v('osc1_fn')] + ", " +
 		v('adsr_a') + ", " + // attack time (sec)
 		v('adsr_d') + ", " + // decay time (sec)
 		v('adsr_r') + ", " + // release time (sec)
@@ -40,7 +46,7 @@ function SfxTestUpdateInstrument()
 		v('fx_noise_volume') + ");";  // osc3 volume (optional)
 	
 	instrument_base = new gSfxInstrument(
-		sample.fn1,
+		sample1,
 //		fns[v('osc1_fn')],
 		v('adsr_a'), // attack time (sec)
 		v('adsr_d'), // decay time (sec)
@@ -50,12 +56,12 @@ function SfxTestUpdateInstrument()
 		v('fx_chip_level'),   // FX chip: level
 		v('fx_chip_x'), // FX chip: x
 		
-		sample.fn2,
+		sample2,
 //		fns[v('osc2_fn')],
 		v('osc2_freq'), // osc2 freq modulation (optional)
 		v('osc2_volume'), // osc2 volume (optional)
 		
-		sample.fn3,
+		sample3,
 //		fns[v('osc3_fn')],
 		v('osc3_freq'), // osc3 freq modulation (optional)
 		v('osc3_volume'),  // osc3 volume (optional)
@@ -81,16 +87,16 @@ function SfxTestNote(note)
 function SfxTestDemo()
 {
 	var instrument1 = new gSfxInstrument(
-		gSfxOsc.fn_square,
+		gSfxOscSquare,
 		0.5, // attack time (sec)
 		1.0, // decay time (sec)
 		0.5, // release time (sec)
 		0.3, // attack volume (0..1)
 		0.1, // (sustained) volume (0..1)
-		gSfxOsc.fn_saw1,
+		gSfxOscSaw1,
 		0.8, // osc2 freq modulation (optional)
 		0.05, // osc2 volume (optional)
-		gSfxOsc.fn_saw1,
+		gSfxOscSaw1,
 		0.6, // osc3 freq modulation (optional)
 		0.05  // osc3 volume (optional)
 	);
@@ -153,16 +159,16 @@ function SfxTestDemo()
 function SfxTestDemo2()
 {
 	var instrument1 = new gSfxInstrument(
-		gSfxOsc.fn_square,
+		gSfxOscSquare,
 		0.5, // attack time (sec)
 		1.0, // decay time (sec)
 		0.5, // release time (sec)
 		0.3, // attack volume (0..1)
 		0.1, // (sustained) volume (0..1)
-		gSfxOsc.fn_saw1,
+		gSfxOscSaw1,
 		0.8, // osc2 freq modulation (optional)
 		0.05, // osc2 volume (optional)
-		gSfxOsc.fn_saw1,
+		gSfxOscSaw1,
 		0.6, // osc3 freq modulation (optional)
 		0.05  // osc3 volume (optional)
 	);

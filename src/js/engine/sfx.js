@@ -8,102 +8,92 @@ function clamp2(b)
 	return Math.min(Math.max(b, -32768), 32767);
 }
 
-
 var gSfxSample = function()
 {
 	this.sample_rate = 44100;
 	this.base_freq = 1;
 	this.samples = new Array();
-	this.pos1 = 0;
-	this.pos2 = 0;
-	this.pos3 = 0;
+	this.position = 0;
 	
-	this.RenderFromOsc = function(osc_fn)
+	this.RenderFromOsc = function(osc_class)
 	{
 		this.base_freq = 1;
 		for (var i=0; i<this.sample_rate; i++)
 		{
-			this.samples[i] = osc_fn(1, i/this.sample_rate);
+			this.samples[i] = osc_class.fn(1, i/this.sample_rate);
 		}
 	}
 	
-	this.fn1 = function(freq, t)
+	this.fn = function(freq, t)
 	{
-		this.pos1 = (this.pos1 + Math.floor(freq / this.base_freq)) % this.sample_rate;
+		this.position = (this.position + Math.floor(freq / this.base_freq)) % this.sample_rate;
 		
-		return this.samples[this.pos1];
+		return this.samples[this.position];
 	}
-	
-	this.fn2 = function(freq, t)
-	{
-		this.pos2 = (this.pos2 + Math.floor(freq / this.base_freq)) % this.sample_rate;
-		
-		return this.samples[this.pos2];
-	}
-	
-	this.fn3 = function(freq, t)
-	{
-		this.pos3 = (this.pos3 + Math.floor(freq / this.base_freq)) % this.sample_rate;
-		
-		return this.samples[this.pos3];
-	}
-	
-	return this;
 };
 
-
-var gSfxOsc =
+// gSfxOsc* helper
+function gSfxOscGetV(freq, t)
 {
-	a: function(freq, t)
+	var s = 1 / freq;
+	var u = t - Math.floor(t / s) * s;
+	return u / s;
+}
+
+// static class
+var gSfxOscSquare =
+{
+	fn: function(freq, t)
 	{
-		var s = 1 / freq;
-		var u = t - Math.floor(t / s) * s;
-		return u / s;
-	},
-	
-	fn_square: function(freq, t)
-	{
-		var v = gSfxOsc.a(freq, t);
-		
+		var v = gSfxOscGetV(freq, t);
 		return (v <= 0.5) ? 1 : -1;
-	},
-	
-	fn_triangle: function(freq, t)
+	}
+};
+
+// static class
+var gSfxOscTriangle =
+{
+	fn: function(freq, t)
 	{
-		var v = gSfxOsc.a(freq, t);
-		
+		var v = gSfxOscGetV(freq, t);
 		return ((v <= 0.5) ? v * 2 : (v - 0.5) * -2);
-	},
-	
-	fn_saw1: function(freq, t)
+	}
+}
+
+// static class
+var gSfxOscSaw1 =
+{
+	fn: function(freq, t)
 	{
-		var v = gSfxOsc.a(freq, t);
-		
+		var v = gSfxOscGetV(freq, t);
 		return v * 2 - 1;
-	},
-	
-	fn_saw2: function(freq, t)
+	}
+};
+
+// static class
+var gSfxOscSaw2 =
+{
+	fn: function(freq, t)
 	{
-		var v = gSfxOsc.a(freq, t);
-		
+		var v = gSfxOscGetV(freq, t);
 		return ((v <= 0.5) ? v * 4 - 1 : 0);
 	}
 };
 
 
 
-var gSfxInstrument = function(osc1_function, attack, decay, release, volume_attack, volume, fx_chip_level, fx_chip_x, osc2_function, osc2_mod, osc2_volume, osc3_function, osc3_mod, osc3_volume, fx_noise_volume)
+var gSfxInstrument = function(osc1_class, attack, decay, release, volume_attack, volume, fx_chip_level, fx_chip_x, osc2_class, osc2_mod, osc2_volume, osc3_class, osc3_mod, osc3_volume, fx_noise_volume)
 {
-	this.osc1_function = osc1_function;
+	this.osc1_class = osc1_class;
 	this.attack = attack;
 	this.decay = decay;
 	this.release = release;
 	this.volume = volume;
 	this.volume_attack = volume_attack;
-	this.osc2_function = osc2_function;
+	this.osc2_class = osc2_class;
 	this.osc2_mod = osc2_mod;
 	this.osc2_volume = osc2_volume;
-	this.osc3_function = osc3_function;
+	this.osc3_class = osc3_class;
 	this.osc3_mod = osc3_mod;
 	this.osc3_volume = osc3_volume;
 	this.fx_noise_volume = fx_noise_volume;
@@ -169,18 +159,18 @@ var gSfxInstrument = function(osc1_function, attack, decay, release, volume_atta
 			}
 			
 			/* OSC1 render */
-			samples[i] = this.osc1_function(freq, i / this.sample_rate);
+			samples[i] = this.osc1_class.fn(freq, i / this.sample_rate);
 			
 			/* OSC2 render */
 			if (this.osc2_mod)
 			{
-				samples[i] += this.osc2_function(freq * this.osc2_mod, i / this.sample_rate) * this.osc2_volume;
+				samples[i] += this.osc2_class.fn(freq * this.osc2_mod, i / this.sample_rate) * this.osc2_volume;
 			}
 			
 			/* OSC3 render */
 			if (this.osc3_mod)
 			{
-				samples[i] += this.osc3_function(freq * this.osc3_mod, i / this.sample_rate) * this.osc3_volume;
+				samples[i] += this.osc3_class.fn(freq * this.osc3_mod, i / this.sample_rate) * this.osc3_volume;
 			}
 			
 			/* FX noise */
