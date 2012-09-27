@@ -76,5 +76,5 @@ var g_game_objects = [
 	[ 248,   80, gGameObjectWall, 5, 1 ],
 	[ 288,   88, gGameObjectWallFalling, 5, 1 ],
 	[ 120,   88, gGameObjectJumpWall ],
-	[ -64,  256, gGameObjectBorder, 100, 1 ]
+	[ -64,  152, gGameObjectBorder, 100, 1 ]
 ];
