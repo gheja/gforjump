@@ -41,7 +41,8 @@ var g_gfx_elements = {
 	6: ".33.3. 3.88.3 ..338. 38.883", // corpse
 	7: "d3d3d3d3 3d3d3d3d 222222e1 eeeeeee1 11111111 22e12222 22e12222 eee1eeee", // brick + jumper
 	8: "11111111 11611161 16161616 11111111 11666661 11166611 11116111 11111111", // box funny
-	9: "11111111 222222.1 2222..e1 ee.eeee1 1111.111 22212..2 ..e12222 .ee1eeee" // brick + falling
+	9: "11111111 222222.1 2222..e1 ee.eeee1 1111.111 22212..2 ..e12222 .ee1eeee", // brick + falling
+	10: "38.. 388. 3888 388. 38.. 3... 3... 3..." // flag
 };
 
 var g_gfx_backgrounds = {
@@ -75,7 +76,12 @@ var g_game_objects = [
 	[ 168,   72, gGameObjectBlade, 1, 1, { rotation: 2 } ],
 	[ 208,   72, gGameObjectWall, 5, 1 ],
 	[ 248,   80, gGameObjectWall, 5, 1 ],
-	[ 288,   88, gGameObjectWallFalling, 5, 1 ],
-	[ 120,   88, gGameObjectJumpWall ],
+	[ 288,   88, gGameObjectWall, 3, 1 ],
+	[ 312,   88, gGameObjectJumpWall ],
+	[ 288,   88, gGameObjectWall, 3, 1 ],
+	[ 248,   32, gGameObjectWall ],
+	[ 256,   32, gGameObjectBladeWall, 2, 1 ],
+	[ 272,   32, gGameObjectWall ],
+	[ 250,   24, gGameObjectLevelFlag ],
 	[ -64,  152, gGameObjectBorder, 100, 1 ]
 ];

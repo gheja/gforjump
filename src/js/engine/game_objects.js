@@ -255,3 +255,15 @@ gGameObjectWallFalling.prototype.onCollide = function(object, direction)
 	this.gravity_enabled = 1;
 	this.onCollideDefault(object, direction);
 }
+
+
+var gGameObjectLevelFlag = function()
+{
+	this.gfx_element_id = 10;
+	return this;
+}
+gGameObjectLevelFlag.prototype = new gGameObject();
+gGameObjectLevelFlag.prototype.onCollide = function(object, direction)
+{
+	// TODO: warp to next level
+}
