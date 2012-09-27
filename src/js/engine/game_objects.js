@@ -51,8 +51,13 @@ gGameObjectPlayer.prototype.Tick = function(objects)
 		
 		var a = Math.floor(this.ticks / 4); // frameskip
 		
+		/* jumping (highest priority) */
+		if (this.speed_y < 0)
+		{
+			this.gfx_element_id = "p7";
+		}
 		/* walking */
-		if (this.speed_x != 0)
+		else if (this.speed_x != 0)
 		{
 			this.gfx_mirror_x = (this.speed_x < 0) * 1; // parse as int
 			this.gfx_element_id = "p" + (a % 4 + 1);
