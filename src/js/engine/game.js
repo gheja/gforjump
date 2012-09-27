@@ -353,12 +353,12 @@ var gGame = {
 			this.game_objects[i].Tick(this.game_objects);
 		}
 		
-		if (this.game_objects[0].pos_x < this.screen_x + 20)
+		if (this.game_objects[0].pos_x < this.screen_x + 40)
 		{
-			this.screen_x = this.game_objects[0].pos_x - 20;
-		} else if (this.game_objects[0].pos_x > this.screen_x + 140)
+			this.screen_x = this.game_objects[0].pos_x - 40;
+		} else if (this.game_objects[0].pos_x > this.screen_x + 120)
 		{
-			this.screen_x = this.game_objects[0].pos_x - 140;
+			this.screen_x = this.game_objects[0].pos_x - 120;
 		}
 		
 		if (this.game_objects[0].pos_y < this.screen_y + 20)
