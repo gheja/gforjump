@@ -3,7 +3,6 @@ var gGameObjectPlayer = function()
 	this.gfx_element_id = "p0";
 	this.can_move = 1;
 	this.gravity_enabled = 1;
-	this.speed_y = -8;
 	this.ticks = 0;
 	return this;
 }
@@ -19,7 +18,7 @@ gGameObjectPlayer.prototype.onCollide = function(object, direction)
 gGameObjectPlayer.prototype.Restart = function()
 {
 	this.pos_x = 16;
-	this.pos_y = 96;
+	this.pos_y = 88;
 	this.dead = 0;
 	this.can_move = 1;
 	this.gfx_element_id = "p0";
