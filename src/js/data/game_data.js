@@ -66,6 +66,25 @@ var g_levels = {
 			// first object must be the player
 			[ 16,  96,  gGameObjectPlayer ],
 			
+			[   0,  112, gGameObjectWall, 6, 1 ],
+			[   40, 104, gGameObjectLevelFlag, 1, 1, { next_level: 2 } ],
+			[ -64,  152, gGameObjectBorder, 100, 1 ]
+		]
+	},
+	
+	2: {
+		gfx_palette: _gfx_palette,
+		gfx_elements: _gfx_elements,
+		gfx_backgrounds: _gfx_backgrounds,
+		player_start_pos_x: 16,
+		player_start_pos_y: 88,
+		
+		game_objects: [
+			// pos_x, pos_y, game_object, count_x, count_y
+			
+			// first object must be the player
+			[ 16,  96,  gGameObjectPlayer ],
+			
 			[   0,  104, gGameObjectWall ],
 			[   0,  112, gGameObjectWall, 6, 1 ],
 			[  64,  112, gGameObjectWall, 3, 1 ],
@@ -93,7 +112,7 @@ var g_levels = {
 			[ 248,   32, gGameObjectWall ],
 			[ 256,   32, gGameObjectBladeWall, 2, 1 ],
 			[ 272,   32, gGameObjectWall ],
-			[ 250,   24, gGameObjectLevelFlag ],
+			[ 250,   24, gGameObjectLevelFlag, 1, 1, { next_level: 1 } ],
 			[ -64,  152, gGameObjectBorder, 100, 1 ]
 		]
 	}

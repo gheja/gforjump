@@ -265,5 +265,14 @@ var gGameObjectLevelFlag = function()
 gGameObjectLevelFlag.prototype = new gGameObject();
 gGameObjectLevelFlag.prototype.onCollide = function(object, direction)
 {
-	// TODO: warp to next level
+	if (object instanceof gGameObjectPlayer)
+	{
+		object.can_move = 0;
+		object.speed_x = 0;
+		object.speed_y = 0;
+		gGame.GotoLevel(this.next_level);
+		
+		// block the player
+		this.onCollideDefault(object, direction);
+	}
 }

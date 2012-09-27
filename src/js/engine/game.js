@@ -206,7 +206,7 @@ var gGameInput = {
 
 var gGame = {
 	frame_number: 0,
-	game_status: 0, // 0: playing, 1: just died, 2: fade out, 3: fade in
+	game_status: 0, // 0: playing, 1: just died, 2: fade out, 3: fade in, 4: level change fade out, 5: level change fade in
 	fade_percent: 0,
 	game_objects: [],
 	game_input: null,
@@ -258,6 +258,15 @@ var gGame = {
 		this.time = 0;
 	},
 	
+	DestroyLevel: function()
+	{
+		for (var i in this.game_objects)
+		{
+			this.game_objects[i] = null;
+		}
+		this.game_objects = [];
+	},
+	
 	InitLevel: function(level_id)
 	{
 		var data = this.levels[level_id];
@@ -284,6 +293,12 @@ var gGame = {
 		this.levels = levels;
 		
 		this.InitLevel(settings.first_level);
+	},
+	
+	GotoLevel: function(level_id)
+	{
+		this.next_level = level_id;
+		this.game_status = 4;
 	},
 	
 	Run: function()
@@ -356,6 +371,28 @@ var gGame = {
 		else if (this.game_status == 3)
 		{
 			this.fade_percent -= 15;
+			if (this.fade_percent < 0)
+			{
+				this.fade_percent = 0;
+				this.game_status = 0;
+			}
+		}
+		// level change fade out
+		else if (this.game_status == 4)
+		{
+			this.fade_percent += 5;
+			if (this.fade_percent > 100)
+			{
+				this.DestroyLevel();
+				this.InitLevel(this.next_level);
+				this.RestartLevel();
+				this.game_status = 5;
+			}
+		}
+		// level change fade in
+		else if (this.game_status == 5)
+		{
+			this.fade_percent -= 5;
 			if (this.fade_percent < 0)
 			{
 				this.fade_percent = 0;
