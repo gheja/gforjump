@@ -183,6 +183,24 @@ gGameObjectBladeWall.prototype.Tick = function(objects)
 	this.DefaultTick(objects);
 }
 
+var gGameObjectJumpWall = function()
+{
+	this.gfx_element_id = 7;
+	this.ticks_left = 0;
+	this.blades = [];
+	return this;
+}
+gGameObjectJumpWall.prototype = new gGameObject();
+gGameObjectJumpWall.prototype.onCollide = function(object, direction)
+{
+	if (!object.dead)
+	{
+		object.speed_y = -15;
+	}
+	
+	this.onCollideDefault(object, direction);
+}
+
 
 var gGameObjectBorder = function()
 {

@@ -15,7 +15,8 @@ var g_gfx_palette = {
 	9: "#06a",
 	"a": "#888",
 	"b": "#b60",
-	"c": "#630"
+	"c": "#630",
+	"d": "#fd0"
 };
 
 var g_gfx_elements = {
@@ -35,6 +36,7 @@ var g_gfx_elements = {
 	4: "....3... ...3a... ..35a... .355a... .355a... 35555a.. 355555a. 3555555a", // blade
 	5: "8.8.8.8.", // border
 	6: ".33.3. 3.88.3 ..338. 38.883", // corpse
+	7: "d3d3d3d3 3d3d3d3d 22212222 22212222 11111111 22222212 22222212 22222212", // brick + jumper
 	8: "11111111 11611161 16161616 11111111 11666661 11166611 11116111 11111111", // box funny
 };
 
@@ -70,5 +72,6 @@ var g_game_objects = [
 	[ 208,   72, gGameObjectWall, 5, 1 ],
 	[ 248,   80, gGameObjectWall, 5, 1 ],
 	[ 288,   88, gGameObjectWall, 5, 1 ],
+	[ 120,   88, gGameObjectJumpWall ],
 	[ -64,  256, gGameObjectBorder, 100, 1 ]
 ];
