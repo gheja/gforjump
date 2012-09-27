@@ -148,6 +148,41 @@ gGameObjectBladeBox.prototype.Tick = function(objects)
 	this.DefaultTick(objects);
 }
 
+var gGameObjectBladeWall = function()
+{
+	this.gfx_element_id = 1;
+	this.ticks_left = 0;
+	this.blades = [];
+	return this;
+}
+gGameObjectBladeWall.prototype = new gGameObject();
+gGameObjectBladeWall.prototype.onCollide = function(object, direction)
+{
+	if (!object.dead)
+	{
+		if (this.ticks_left == 0)
+		{
+			this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, gGameObjectBlade);
+		}
+		this.ticks_left = 10;
+		object.Kill();
+	}
+	
+	this.onCollideDefault(object, direction);
+}
+gGameObjectBladeWall.prototype.Tick = function(objects)
+{
+	if (this.ticks_left > 0)
+	{
+		if (this.ticks_left == 1)
+		{
+			this.blades[0].trash_flag = 1;
+		}
+		this.ticks_left--;
+	}
+	this.DefaultTick(objects);
+}
+
 
 var gGameObjectBorder = function()
 {

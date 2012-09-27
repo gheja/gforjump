@@ -29,6 +29,7 @@ var g_gfx_elements = {
 	"p5": ".b.b b3b. 333. .3.. .33. 33.. .3.. 3.3.", // fall 1
 	"p6": "b.b. b33b 333. .3.. 33.. .33. .3.. 3.3.", // fall 2
 	0: "11111111 22212222 22212222 22212222 11111111 22222212 22222212 22222212", // brick
+	1: "3a13a13a 25215225 22212222 22212222 11111111 22222212 22222212 22222212", // brick + blade
 	2: "44444444 44414414 44444444 .4444444 .4144444 .4411111 ..444444 ....4444", // sun
 	3: "66666666 61111116 61611616 61111116 61611616 61166116 61111116 66666666", // box
 	4: "....3... ...3a... ..35a... .355a... .355a... 35555a.. 355555a. 3555555a", // blade
@@ -52,15 +53,22 @@ var g_game_objects = [
 	[  96,   88, gGameObjectWall, 3, 1 ],
 	[  32,  104, gGameObjectWall ],
 //	[ 104,   64, gGameObjectBladeBox ],
-	[ 128,  144, gGameObjectWall, 22, 1 ],
+	[ 128,  144, gGameObjectWall, 9, 1 ],
+	[ 200,  144, gGameObjectBladeWall ],
+	[ 208,  144, gGameObjectWall, 13, 1 ],
 	[ 128,  136, gGameObjectBlade ],
+	[ 248,  128, gGameObjectWall, 4, 2 ],
+	[ 280,  136, gGameObjectBlade ],
 	[ 288,  136, gGameObjectBlade ],
 	[ 296,  136, gGameObjectBlade ],
-	[ 246,  128, gGameObjectWall, 5, 2 ],
+	[ 304,  136, gGameObjectBlade ],
 	[ 192,  112, gGameObjectWall, 4, 1 ],
 	[ 192,   40, gGameObjectBladeBox ],
 	[ 160,   88, gGameObjectWall, 3, 1 ],
 	[ 168,   64, gGameObjectWall, 5, 1 ],
 	[ 168,   72, gGameObjectBlade, 1, 1, { rotation: 2 } ],
+	[ 208,   72, gGameObjectWall, 5, 1 ],
+	[ 248,   80, gGameObjectWall, 5, 1 ],
+	[ 288,   88, gGameObjectWall, 5, 1 ],
 	[ -64,  256, gGameObjectBorder, 100, 1 ]
 ];
