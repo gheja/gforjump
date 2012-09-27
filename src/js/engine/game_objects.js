@@ -23,7 +23,7 @@ gGameObjectPlayer.prototype.Restart = function()
 	this.can_move = 1;
 	this.gfx_element_id = "p0";
 }
-gGameObjectPlayer.prototype.Kill = function()
+gGameObjectPlayer.prototype.Kill = function(no_corpse)
 {
 	if (this.dead)
 	{
@@ -31,12 +31,14 @@ gGameObjectPlayer.prototype.Kill = function()
 	}
 	
 	this.dead = 1;
-	this.speed_x = 0;
-	this.can_move = 0;
-	this.gfx_element_id = ".";
-	
-	var x = gGame.AddGameObject(this.pos_x, this.pos_y, gGameObjectPlayerCorpse);
-	x.speed_y = this.speed_y;
+	if (!no_corpse)
+	{
+		this.speed_x = 0;
+		this.can_move = 0;
+		this.gfx_element_id = ".";
+		var x = gGame.AddGameObject(this.pos_x, this.pos_y, gGameObjectPlayerCorpse);
+		x.speed_y = this.speed_y;
+	}
 	
 	gGame.SetStatus(1); // just died
 }
@@ -211,8 +213,8 @@ var gGameObjectBorder = function()
 gGameObjectBorder.prototype = new gGameObject();
 gGameObjectBorder.prototype.onCollide = function(object, direction)
 {
-	object.Kill();
-	this.onCollideDefault(object, direction);
+	object.Kill(true);
+//	this.onCollideDefault(object, direction);
 }
 
 
