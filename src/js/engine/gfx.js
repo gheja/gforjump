@@ -217,10 +217,10 @@ var gGfx = {
 		}
 	},
 	
-	Fade: function(percent)
+	Fade: function(percent, color)
 	{
 		gGfx.context.save();
-		gGfx.context.fillStyle = "rgba(0, 0, 0, " + (percent / 100) + ");"
+		gGfx.context.fillStyle = "rgba(" + color + ", " + (percent / 100) + ");"
 		gGfx.context.fillRect(0, 0, gGfx.width * gGfx.scale, gGfx.height * gGfx.scale);
 		gGfx.context.restore();
 	}

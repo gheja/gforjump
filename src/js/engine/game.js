@@ -298,6 +298,7 @@ var gGame = {
 	GotoLevel: function(level_id)
 	{
 		this.next_level = level_id;
+		this.fade_color = "255, 255, 255"; // must have in this format!
 		this.game_status = 4;
 	},
 	
@@ -354,6 +355,7 @@ var gGame = {
 		// just died
 		else if (this.game_status == 1)
 		{
+			this.fade_color = "0,0,0" // must have in this format!
 			this.deaths++;
 			this.game_status = 2;
 		}
@@ -392,6 +394,7 @@ var gGame = {
 		// level change fade in
 		else if (this.game_status == 5)
 		{
+			this.fade_color = "0,0,0"; // must have in this format!
 			this.fade_percent -= 5;
 			if (this.fade_percent < 0)
 			{
@@ -454,7 +457,10 @@ var gGame = {
 				gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y), obj.rotation, obj.gfx_mirror_x);
 			}
 		}
-		gGfx.Fade(this.fade_percent);
+		if (this.fade_percent != 0)
+		{
+			gGfx.Fade(this.fade_percent, this.fade_color);
+		}
 		gGfx.RenderStatus(this.FormatTime(this.time), this.ZeroPad(this.deaths), "L" + this.ZeroPad(this.level, 4));
 	}
 };
