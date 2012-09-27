@@ -379,6 +379,6 @@ var gGame = {
 				gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y), obj.rotation, obj.gfx_mirror_x);
 			}
 		}
-		gGfx.RenderStatus(this.FormatTime(this.time), this.deaths, "L" + this.ZeroPad(this.level, 4));
+		gGfx.RenderStatus(this.FormatTime(this.time), this.ZeroPad(this.deaths), "L" + this.ZeroPad(this.level, 4));
 	}
 };
