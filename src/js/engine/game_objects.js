@@ -37,6 +37,8 @@ gGameObjectPlayer.prototype.Kill = function()
 	
 	var x = gGame.AddGameObject(this.pos_x, this.pos_y, gGameObjectPlayerCorpse);
 	x.speed_y = this.speed_y;
+	
+	gGame.SetStatus(1); // just died
 }
 gGameObjectPlayer.prototype.Tick = function(objects)
 {

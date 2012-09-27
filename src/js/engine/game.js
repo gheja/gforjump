@@ -206,6 +206,8 @@ var gGameInput = {
 
 var gGame = {
 	frame_number: 0,
+	game_status: 0, // 0: playing, 1: just died, 2: fade out, 3: fade in
+	fade_percent: 0,
 	game_objects: [],
 	game_input: null,
 	screen_x: 0,
@@ -277,6 +279,11 @@ var gGame = {
 		setInterval(function() { gGame.Tick(); }, 1000 / g_game_settings.fps);
 	},
 	
+	SetStatus: function(status)
+	{
+		this.game_status = status;
+	},
+	
 	ZeroPad: function(a)
 	{
 		return (a < 10) ? "0" + a : a;
@@ -294,15 +301,8 @@ var gGame = {
 		var obj, speed;
 		this.frame_number++;
 		
-		if (this.game_objects[0].dead)
-		{
-			if (gGameInput.GetStatus(G_GAME_INPUT_JUMP))
-			{
-				this.deaths++;
-				this.Restart();
-			}
-		}
-		else
+		// playing
+		if (this.game_status == 0)
 		{
 			this.time += g_game_settings.fps / 1000;
 			
@@ -322,6 +322,32 @@ var gGame = {
 			if (gGameInput.GetStatus(G_GAME_INPUT_JUMP) && this.game_objects[0].collision_bottom)
 			{
 				this.game_objects[0].speed_y = -8;
+			}
+		}
+		// just died
+		else if (this.game_status == 1)
+		{
+			this.deaths++;
+			this.game_status = 2;
+		}
+		// fading out
+		else if (this.game_status == 2)
+		{
+			this.fade_percent += 5;
+			if (this.fade_percent > 100)
+			{
+				this.Restart();
+				this.game_status = 3;
+			}
+		}
+		// fading in
+		else if (this.game_status == 3)
+		{
+			this.fade_percent -= 15;
+			if (this.fade_percent < 0)
+			{
+				this.fade_percent = 0;
+				this.game_status = 0;
 			}
 		}
 		
@@ -370,7 +396,7 @@ var gGame = {
 		}
 		
 		gGfx.ClearScreen(0);
-		gGfx.DrawBackground(0, Math.floor(this.screen_x * -0.5), Math.floor(this.screen_y * -0.5));
+		gGfx.DrawBackground(0, Math.floor(this.screen_x * -0.5 - 20), Math.floor(this.screen_y * -0.5 + 20));
 		for (var i in this.game_objects)
 		{
 			obj = this.game_objects[i];
@@ -379,6 +405,7 @@ var gGame = {
 				gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y), obj.rotation, obj.gfx_mirror_x);
 			}
 		}
+		gGfx.Fade(this.fade_percent);
 		gGfx.RenderStatus(this.FormatTime(this.time), this.ZeroPad(this.deaths), "L" + this.ZeroPad(this.level, 4));
 	}
 };
