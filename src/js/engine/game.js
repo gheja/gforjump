@@ -212,6 +212,10 @@ var gGame = {
 	screen_y: 0,
 	shake_ticks: 0,
 	
+	deaths: 0,
+	level: 1,
+	time: 0,
+	
 	AddGameObject: function(pos_x, pos_y, base_object, count_x, count_y, parameters)
 	{
 		count_x = count_x ? count_x : 1;
@@ -247,6 +251,7 @@ var gGame = {
 		this.screen_x = 0;
 		this.screen_y = 0;
 		this.game_objects[0].Restart();
+		this.time = 0;
 	},
 	
 	Init: function(canvas)
@@ -272,6 +277,18 @@ var gGame = {
 		setInterval(function() { gGame.Tick(); }, 1000 / g_game_settings.fps);
 	},
 	
+	ZeroPad: function(a)
+	{
+		return (a < 10) ? "0" + a : a;
+	},
+	
+	FormatTime: function(time)
+	{
+		return this.ZeroPad(Math.floor(time / 60)) + ":" +
+			this.ZeroPad(Math.floor(time % 60)) + "." +
+			this.ZeroPad(Math.floor(time * 100 % 100));
+	},
+	
 	Tick: function()
 	{
 		var obj, speed;
@@ -281,11 +298,14 @@ var gGame = {
 		{
 			if (gGameInput.GetStatus(G_GAME_INPUT_JUMP))
 			{
+				this.deaths++;
 				this.Restart();
 			}
 		}
 		else
 		{
+			this.time += g_game_settings.fps / 1000;
+			
 			speed = gGameInput.GetStatus(G_GAME_INPUT_RUN) ? 2 : 1;
 			
 			if (gGameInput.GetStatus(G_GAME_INPUT_LEFT))
@@ -359,5 +379,6 @@ var gGame = {
 				gGfx.Draw(obj.gfx_element_id, Math.floor(obj.pos_x - this.screen_x), Math.floor(obj.pos_y - this.screen_y), obj.rotation, obj.gfx_mirror_x);
 			}
 		}
+		gGfx.RenderStatus(this.FormatTime(this.time), this.deaths, "L" + this.ZeroPad(this.level, 4));
 	}
 };
