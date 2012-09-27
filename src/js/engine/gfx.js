@@ -85,7 +85,7 @@ var gGfx = {
 			lines.forEach(function(line, y) {
 				for (var x = 0; x < width; x++)
 				{
-					obj.ctx.fillStyle = line[x] != "." ? gGfx.palette[line[x]] : "rgba(0, 0, 0, 0)";
+					obj.ctx.fillStyle = gGfx.palette[line[x]];
 					obj.ctx.fillRect(x * gGfx.scale, y * gGfx.scale, gGfx.scale, gGfx.scale);
 				}
 			});

@@ -3,6 +3,7 @@ var g_game_settings = {
 };
 
 var g_gfx_palette = {
+	".": "rgba(0,0,0,0)",
 	0: "#0ac",
 	1: "#d80",
 	2: "#fa0",
