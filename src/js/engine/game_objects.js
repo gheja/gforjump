@@ -234,3 +234,17 @@ gGameObjectBlade.prototype.onCollide = function(object, direction)
 		object.Kill();
 	}
 }
+
+
+var gGameObjectWallFalling = function()
+{
+	this.gfx_element_id = 9;
+	return this;
+}
+gGameObjectWallFalling.prototype = new gGameObject();
+gGameObjectWallFalling.prototype.onCollide = function(object, direction)
+{
+	this.can_move = 1;
+	this.gravity_enabled = 1;
+	this.onCollideDefault(object, direction);
+}
