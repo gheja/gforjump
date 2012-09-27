@@ -9,7 +9,7 @@ function clamp2(b)
 }
 
 
-var gSfxPattern = function()
+var gSfxSample = function()
 {
 	this.sample_rate = 44100;
 	this.base_freq = 1;

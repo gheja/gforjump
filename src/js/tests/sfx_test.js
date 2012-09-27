@@ -11,8 +11,8 @@ function v(obj)
 }
 
 var instrument_base = null;
-var pattern = new gSfxPattern();
-pattern.RenderFromOsc(gSfxOsc.fn_saw1);
+var sample = new gSfxSample();
+sample.RenderFromOsc(gSfxOsc.fn_saw1);
 
 function SfxTestUpdateInstrument()
 {
@@ -40,7 +40,7 @@ function SfxTestUpdateInstrument()
 		v('fx_noise_volume') + ");";  // osc3 volume (optional)
 	
 	instrument_base = new gSfxInstrument(
-		pattern.fn1,
+		sample.fn1,
 //		fns[v('osc1_fn')],
 		v('adsr_a'), // attack time (sec)
 		v('adsr_d'), // decay time (sec)
@@ -50,12 +50,12 @@ function SfxTestUpdateInstrument()
 		v('fx_chip_level'),   // FX chip: level
 		v('fx_chip_x'), // FX chip: x
 		
-		pattern.fn2,
+		sample.fn2,
 //		fns[v('osc2_fn')],
 		v('osc2_freq'), // osc2 freq modulation (optional)
 		v('osc2_volume'), // osc2 volume (optional)
 		
-		pattern.fn3,
+		sample.fn3,
 //		fns[v('osc3_fn')],
 		v('osc3_freq'), // osc3 freq modulation (optional)
 		v('osc3_volume'),  // osc3 volume (optional)
