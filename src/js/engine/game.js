@@ -217,6 +217,8 @@ var gGame = {
 	deaths: 0,
 	level: 1,
 	time: 0,
+	fps: 30,
+	levels: null,
 	
 	AddGameObject: function(pos_x, pos_y, base_object, count_x, count_y, parameters)
 	{
@@ -248,7 +250,7 @@ var gGame = {
 		return this.game_objects[this.game_objects.length - 1];
 	},
 	
-	Restart: function()
+	RestartLevel: function()
 	{
 		this.screen_x = 0;
 		this.screen_y = 0;
@@ -256,27 +258,37 @@ var gGame = {
 		this.time = 0;
 	},
 	
-	Init: function(canvas)
+	InitLevel: function(level_id)
 	{
-		gGfx.Init(canvas);
-		gGfx.SetPalette(g_gfx_palette);
-		gGfx.SetElements(g_gfx_elements);
+		var data = this.levels[level_id];
+		
+		gGfx.SetPalette(data.gfx_palette);
+		gGfx.SetElements(data.gfx_elements);
 		gGfx.PreRender();
 		
-		gGameInput.Attach();
-		
-		var a = g_game_objects;
+		var a = data.game_objects;
 		for (var i in a)
 		{
 			this.AddGameObject(a[i][0], a[i][1], a[i][2], a[i][3], a[i][4], a[i][5]);
 		}
 		
-		this.Restart();
+		this.RestartLevel();
+	},
+	
+	Init: function(canvas, settings, levels)
+	{
+		gGfx.Init(canvas, settings.width, settings.height, settings.scale);
+		this.fps = settings.fps;
+		gGameInput.Attach();
+		
+		this.levels = levels;
+		
+		this.InitLevel(settings.first_level);
 	},
 	
 	Run: function()
 	{
-		setInterval(function() { gGame.Tick(); }, 1000 / g_game_settings.fps);
+		setInterval(function() { gGame.Tick(); }, 1000 / this.fps);
 	},
 	
 	SetStatus: function(status)
@@ -336,7 +348,7 @@ var gGame = {
 			this.fade_percent += 5;
 			if (this.fade_percent > 100)
 			{
-				this.Restart();
+				this.RestartLevel();
 				this.game_status = 3;
 			}
 		}

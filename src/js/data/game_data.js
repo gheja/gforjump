@@ -1,8 +1,12 @@
 var g_game_settings = {
-	fps: 30
+	fps: 30,
+	width: 160,
+	height: 120,
+	scale: 4,
+	first_level: 1
 };
 
-var g_gfx_palette = {
+var _gfx_palette = {
 	".": "rgba(0,0,0,0)",
 	0: "#0ac",
 	1: "#d80",
@@ -21,7 +25,7 @@ var g_gfx_palette = {
 	"e": "#e90"
 };
 
-var g_gfx_elements = {
+var _gfx_elements = {
 	".": ".", // empty pixel
 	"p0": ".bb. b3c3 b333 .3.. .33. .33. .33. 3.33", // normal standing
 	"p0x":".bb. b333 b333 .3.. .33. .33. .33. 3.33", //   + blinking
@@ -45,43 +49,52 @@ var g_gfx_elements = {
 	10: "38.. 388. 3888 388. 38.. 3... 3... 3..." // flag
 };
 
-var g_gfx_backgrounds = {
+var _gfx_backgrounds = {
 };
 
-var g_game_objects = [
-	// pos_x, pos_y, game_object, count_x, count_y
-	
-	// first object must be the player
-	[ 16,  96,  gGameObjectPlayer ],
-	
-	[   0,  104, gGameObjectWall ],
-	[   0,  112, gGameObjectWall, 6, 1 ],
-	[  64,  112, gGameObjectWall, 3, 1 ],
-	[  96,   88, gGameObjectWall, 3, 1 ],
-	[  32,  104, gGameObjectWall ],
-//	[ 104,   64, gGameObjectBladeBox ],
-	[ 128,  144, gGameObjectWall, 9, 1 ],
-	[ 200,  144, gGameObjectBladeWall ],
-	[ 208,  144, gGameObjectWall, 13, 1 ],
-	[ 128,  136, gGameObjectBlade ],
-	[ 248,  128, gGameObjectWall, 4, 2 ],
-	[ 280,  136, gGameObjectBlade ],
-	[ 288,  136, gGameObjectBlade ],
-	[ 296,  136, gGameObjectBlade ],
-	[ 304,  136, gGameObjectBlade ],
-	[ 192,  112, gGameObjectWall, 4, 1 ],
-	[ 192,   40, gGameObjectBladeBox ],
-	[ 160,   88, gGameObjectWall, 3, 1 ],
-	[ 168,   64, gGameObjectWall, 5, 1 ],
-	[ 168,   72, gGameObjectBlade, 1, 1, { rotation: 2 } ],
-	[ 208,   72, gGameObjectWall, 5, 1 ],
-	[ 248,   80, gGameObjectWall, 5, 1 ],
-	[ 288,   88, gGameObjectWall, 3, 1 ],
-	[ 312,   88, gGameObjectJumpWall ],
-	[ 288,   88, gGameObjectWall, 3, 1 ],
-	[ 248,   32, gGameObjectWall ],
-	[ 256,   32, gGameObjectBladeWall, 2, 1 ],
-	[ 272,   32, gGameObjectWall ],
-	[ 250,   24, gGameObjectLevelFlag ],
-	[ -64,  152, gGameObjectBorder, 100, 1 ]
-];
+var g_levels = {
+	1: {
+		gfx_palette: _gfx_palette,
+		gfx_elements: _gfx_elements,
+		gfx_backgrounds: _gfx_backgrounds,
+		player_start_pos_x: 16,
+		player_start_pos_y: 88,
+		
+		game_objects: [
+			// pos_x, pos_y, game_object, count_x, count_y
+			
+			// first object must be the player
+			[ 16,  96,  gGameObjectPlayer ],
+			
+			[   0,  104, gGameObjectWall ],
+			[   0,  112, gGameObjectWall, 6, 1 ],
+			[  64,  112, gGameObjectWall, 3, 1 ],
+			[  96,   88, gGameObjectWall, 3, 1 ],
+			[  32,  104, gGameObjectWall ],
+			[ 128,  144, gGameObjectWall, 9, 1 ],
+			[ 200,  144, gGameObjectBladeWall ],
+			[ 208,  144, gGameObjectWall, 13, 1 ],
+			[ 128,  136, gGameObjectBlade ],
+			[ 248,  128, gGameObjectWall, 4, 2 ],
+			[ 280,  136, gGameObjectBlade ],
+			[ 288,  136, gGameObjectBlade ],
+			[ 296,  136, gGameObjectBlade ],
+			[ 304,  136, gGameObjectBlade ],
+			[ 192,  112, gGameObjectWall, 4, 1 ],
+			[ 192,   40, gGameObjectBladeBox ],
+			[ 160,   88, gGameObjectWall, 3, 1 ],
+			[ 168,   64, gGameObjectWall, 5, 1 ],
+			[ 168,   72, gGameObjectBlade, 1, 1, { rotation: 2 } ],
+			[ 208,   72, gGameObjectWall, 5, 1 ],
+			[ 248,   80, gGameObjectWall, 5, 1 ],
+			[ 288,   88, gGameObjectWall, 3, 1 ],
+			[ 312,   88, gGameObjectJumpWall ],
+			[ 288,   88, gGameObjectWall, 3, 1 ],
+			[ 248,   32, gGameObjectWall ],
+			[ 256,   32, gGameObjectBladeWall, 2, 1 ],
+			[ 272,   32, gGameObjectWall ],
+			[ 250,   24, gGameObjectLevelFlag ],
+			[ -64,  152, gGameObjectBorder, 100, 1 ]
+		]
+	}
+}
