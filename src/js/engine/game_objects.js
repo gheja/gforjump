@@ -19,6 +19,8 @@ gGameObjectPlayer.prototype.Restart = function()
 {
 	this.pos_x = this.start_pos_x;
 	this.pos_y = this.start_pos_y;
+	this.speed_x = 0;
+	this.speed_y = 0;
 	this.dead = 0;
 	this.can_move = 1;
 	this.gfx_element_id = "p0";
