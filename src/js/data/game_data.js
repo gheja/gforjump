@@ -59,7 +59,7 @@ var g_levels = {
 		gfx_backgrounds: _gfx_backgrounds,
 		
 		game_objects: [
-			// pos_x, pos_y, game_object, count_x, count_y
+			// pos_x, pos_y, game_object, count_x, count_y, extra properties
 			
 			// first object must be the player
 			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 32, start_pos_y: 104 } ],
@@ -88,7 +88,7 @@ var g_levels = {
 		gfx_backgrounds: _gfx_backgrounds,
 		
 		game_objects: [
-			// pos_x, pos_y, game_object, count_x, count_y
+			// pos_x, pos_y, game_object, count_x, count_y, extra properties
 			
 			// first object must be the player
 			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 16, start_pos_y: 96 } ],
@@ -123,7 +123,7 @@ var g_levels = {
 		gfx_backgrounds: _gfx_backgrounds,
 		
 		game_objects: [
-			// pos_x, pos_y, game_object, count_x, count_y
+			// pos_x, pos_y, game_object, count_x, count_y, extra properties
 			
 			// first object must be the player
 			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 8, start_pos_y: 120 } ],
@@ -162,7 +162,7 @@ var g_levels = {
 		gfx_backgrounds: _gfx_backgrounds,
 		
 		game_objects: [
-			// pos_x, pos_y, game_object, count_x, count_y
+			// pos_x, pos_y, game_object, count_x, count_y, extra properties
 			
 			// first object must be the player
 			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 8, start_pos_y: 120 } ],
@@ -183,7 +183,7 @@ var g_levels = {
 		gfx_backgrounds: _gfx_backgrounds,
 		
 		game_objects: [
-			// pos_x, pos_y, game_object, count_x, count_y
+			// pos_x, pos_y, game_object, count_x, count_y, extra properties
 			
 			// first object must be the player
 			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 16, start_pos_y: 96 } ],
