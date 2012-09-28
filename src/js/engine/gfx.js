@@ -157,39 +157,6 @@ var gGfx = {
 		return this.element_parameters[id];
 	},
 	
-	RenderFrame: function()
-	{
-	},
-	
-/*
-	RenderString: function(string, x, y)
-	{
-		var cv = document.createElement('canvas');
-		
-		cv.width = 200;
-		cv.height = 20;
-		var ctx = cv.getContext('2d');
-		
-		ctx.fillStyle = "#fff";
-		ctx.font = "10px Tahoma bold";
-		ctx.fillText(string, 0, 10);
-		
-		var data = ctx.getImageData(0, 0, 160, 20).data;
-		
-		gGfx.context.fillStyle = "#fff";
-		for (var i = 0; i < 20; i++)
-		{
-			for (var j = 0; j < 160; j++)
-			{
-				if (data[(i * 160 + j) * 4] > 128)
-				{
-					gGfx.context.fillRect((j + x) * gGfx.scale, (i + y) * gGfx.scale, gGfx.scale, gGfx.scale);
-				}
-			}
-		}
-	}
-*/
-	
 	RenderStatus: function(time, deaths, level)
 	{
 		/* TODO: move these outside of the function to make them static */
