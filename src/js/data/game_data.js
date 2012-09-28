@@ -62,15 +62,122 @@ var g_levels = {
 			// pos_x, pos_y, game_object, count_x, count_y
 			
 			// first object must be the player
-			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 16, start_pos_y: 96 } ],
+			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 32, start_pos_y: 104 } ],
 			
-			[   0,  112, gGameObjectWall, 6, 1 ],
-			[   40, 104, gGameObjectLevelFlag, 1, 1, { next_level: 2 } ],
+			[   0,  136, gGameObjectWall, 6, 1 ],
+			[  16,  104, gGameObjectWall ],
+			[  16,  112, gGameObjectWall, 6, 1 ],
+			[  80,  112, gGameObjectWall, 3, 1 ],
+			[ 112,   88, gGameObjectWall, 3, 1 ],
+			[ 144,  144, gGameObjectWall, 8, 1 ],
+			[ 144,  136, gGameObjectBlade ],
+			
+			[ 224,  144, gGameObjectWall, 5, 1 ],
+			[ 264,  136, gGameObjectWall, 1, 2 ],
+			
+			[ 264,  128, gGameObjectWall, 4, 1 ],
+			[ 288,  120, gGameObjectLevelFlag, 1, 1, { next_level: 2 } ],
+			
 			[ -64,  152, gGameObjectBorder, 100, 1 ]
 		]
 	},
 	
 	2: {
+		gfx_palette: _gfx_palette,
+		gfx_elements: _gfx_elements,
+		gfx_backgrounds: _gfx_backgrounds,
+		
+		game_objects: [
+			// pos_x, pos_y, game_object, count_x, count_y
+			
+			// first object must be the player
+			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 16, start_pos_y: 96 } ],
+			
+			[  -8,  112, gGameObjectWall, 7, 1 ],
+			[  64,   96, gGameObjectWall, 2, 1 ],
+			[  24,   88, gGameObjectWall, 2, 1 ],
+			[   0,   80, gGameObjectWall, 4, 1 ],
+			[   0,   56, gGameObjectWall, 1, 3 ],
+			[  -8,   56, gGameObjectWall ],
+			
+			[  16,   48, gGameObjectWall, 2, 1 ],
+			[  16,   56, gGameObjectBlade, 1, 1, { rotation: 2 } ],
+			[  32,   48, gGameObjectBladeWall, 2, 1 ],
+			[  48,   48, gGameObjectWall, 4, 1 ],
+			
+			[  80,   48, gGameObjectWall, 1, 11 ],
+			[  88,  128, gGameObjectJumpWall ],
+			[  96,   48, gGameObjectWall, 1, 11 ],
+			[  104,  48, gGameObjectWall ],
+			
+			[  56,   16, gGameObjectWall, 4, 1 ],
+			[  64,  8, gGameObjectLevelFlag, 1, 1, { next_level: 3 } ],
+			
+			[ -64,  152, gGameObjectBorder, 100, 1 ]
+		]
+	},
+	
+	3: {
+		gfx_palette: _gfx_palette,
+		gfx_elements: _gfx_elements,
+		gfx_backgrounds: _gfx_backgrounds,
+		
+		game_objects: [
+			// pos_x, pos_y, game_object, count_x, count_y
+			
+			// first object must be the player
+			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 8, start_pos_y: 120 } ],
+			
+			[ -28,   96, gGameObjectLevelFlag, 1, 1, { next_level: 1 } ],
+			
+			[ -32,  104, gGameObjectWall, 3, 1 ],
+			[  -8,   88, gGameObjectWall, 1, 6 ],
+			[   0,  128, gGameObjectWall, 4, 1 ],
+			[  48,  104, gGameObjectWall, 4, 1 ],
+			[  32,  128, gGameObjectBladeWall, 7, 1 ],
+			[  88,  128, gGameObjectJumpWall ],
+			[  96,  128, gGameObjectBladeWall ],
+			[ 104,  128, gGameObjectWall, 2, 1 ],
+			
+			[  -8,  56, gGameObjectWall,  5, 1 ],
+			[  24,  64, gGameObjectWall, 7, 1 ],
+			[  64,  56, gGameObjectBlade, 2, 1 ],
+			[  32,  72, gGameObjectBlade, 6, 1, { rotation: 2 } ],
+			[  80,  32, gGameObjectWall, 1, 5 ],
+			[  88,  32, gGameObjectBladeWall, 2, 1 ],
+			[ 104,  32, gGameObjectWall ],
+			[ 104,  40, gGameObjectWall, 2, 1 ],
+			
+			[  96,  64, gGameObjectWall, 4, 1 ],
+			
+			[   0,  32, gGameObjectBladeBox ],
+			
+			[ -64,  152, gGameObjectBorder, 100, 1 ]
+		]
+	},
+	
+	4: {
+		gfx_palette: _gfx_palette,
+		gfx_elements: _gfx_elements,
+		gfx_backgrounds: _gfx_backgrounds,
+		
+		game_objects: [
+			// pos_x, pos_y, game_object, count_x, count_y
+			
+			// first object must be the player
+			[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 8, start_pos_y: 120 } ],
+			
+			[   0,  128, gGameObjectWall, 4, 1 ],
+			
+			[ -28,   96, gGameObjectLevelFlag, 1, 1, { next_level: 4 } ],
+			
+			[ -64,  152, gGameObjectBorder, 100, 1 ]
+		]
+	},
+	
+	
+	
+	"test": {
 		gfx_palette: _gfx_palette,
 		gfx_elements: _gfx_elements,
 		gfx_backgrounds: _gfx_backgrounds,
