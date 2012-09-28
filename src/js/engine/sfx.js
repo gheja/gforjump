@@ -80,6 +80,25 @@ var gSfxOscSaw2 =
 	}
 };
 
+// static class
+var gSfxOscNoise =
+{
+	fn: function(freq, t)
+	{
+		return Math.random() * 2 - 1;
+	}
+};
+
+// static class
+var gSfxOscNoiseBump =
+{
+	fn: function(freq, t)
+	{
+		var v = gSfxOscGetV(freq, t);
+		return Math.random() * 2 - 1;
+	}
+};
+
 
 
 var gSfxInstrument = function(osc1_class, attack, decay, release, volume_attack, volume, fx_chip_level, fx_chip_x, osc2_class, osc2_mod, osc2_volume, osc3_class, osc3_mod, osc3_volume, fx_noise_volume)
