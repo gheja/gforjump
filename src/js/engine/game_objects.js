@@ -17,8 +17,8 @@ gGameObjectPlayer.prototype.onCollide = function(object, direction)
 }
 gGameObjectPlayer.prototype.Restart = function()
 {
-	this.pos_x = 16;
-	this.pos_y = 88;
+	this.pos_x = this.start_pos_x;
+	this.pos_y = this.start_pos_y;
 	this.dead = 0;
 	this.can_move = 1;
 	this.gfx_element_id = "p0";
