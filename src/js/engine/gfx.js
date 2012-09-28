@@ -9,8 +9,11 @@ var gGfx = {
 	backgrounds: [],
 	rendered: [],
 	
-	Init: function(object)
+	Init: function(object, width, height, scale)
 	{
+		gGfx.width = width;
+		gGfx.height = height;
+		gGfx.scale = scale;
 		gGfx.context = document.getElementById(object).getContext("2d");
 	},
 	
@@ -191,25 +194,24 @@ var gGfx = {
 	{
 		/* TODO: move these outside of the function to make them static */
 		var cv = document.createElement('canvas');
-		
-		cv.width = 160;
+		cv.width = this.width;
 		cv.height = 20;
-		var ctx = cv.getContext('2d');
 		
+		var ctx = cv.getContext('2d');
 		ctx.fillStyle = "#fff";
 		ctx.font = "10px Tahoma bold";
 		ctx.fillText(time, 1, 8);
-		ctx.fillText(deaths, 100, 8);
-		ctx.fillText(level, 140, 8);
+		ctx.fillText(deaths, this.width - 60, 8);
+		ctx.fillText(level, this.width - 20, 8);
 		
-		var data = ctx.getImageData(0, 0, 160, 20).data;
+		var data = ctx.getImageData(0, 0, this.width, 20).data;
 		
 		gGfx.context.fillStyle = "#fff";
 		for (var i = 0; i < 20; i++)
 		{
-			for (var j = 0; j < 160; j++)
+			for (var j = 0; j < this.width; j++)
 			{
-				if (data[(i * 160 + j) * 4] > 128)
+				if (data[(i * this.width + j) * 4] > 128)
 				{
 					gGfx.context.fillRect(j * gGfx.scale, i * gGfx.scale, gGfx.scale, gGfx.scale);
 				}
