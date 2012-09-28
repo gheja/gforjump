@@ -217,6 +217,7 @@ var gGame = {
 	deaths: 0,
 	level: 1,
 	time: 0,
+	start_time: 0,
 	fps: 30,
 	levels: null,
 	
@@ -255,7 +256,7 @@ var gGame = {
 		this.screen_x = 0;
 		this.screen_y = 0;
 		this.game_objects[0].Restart();
-		this.time = 0;
+		this.time = this.start_time;
 	},
 	
 	DestroyLevel: function()
@@ -297,6 +298,7 @@ var gGame = {
 	
 	GotoLevel: function(level_id)
 	{
+		this.start_time = this.time;
 		this.next_level = level_id;
 		this.fade_color = "255, 255, 255"; // must have in this format!
 		this.game_status = 4;
