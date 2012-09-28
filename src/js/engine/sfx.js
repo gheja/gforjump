@@ -201,34 +201,42 @@ var gSfxTrack = function(bpm, lpb, beats)
 	this.sample_count = 0;
 	
 	
-	this.RenderChannel = function(instrument, track, default_length)
+	this.RenderChannel = function(instrument, track, default_length, repeat)
 	{
-		var i, j, b, note, length, freq;
+		var i, j, k, b, c, note, length, freq;
 		var current_s = 0;
 		
-		/* render and mix notes... */
-		for (i in track)
+		for (k = 0; k < repeat; k++)
 		{
+			/* render and mix notes... */
+			for (i in track)
+			{
 			// every item is encoded as the following:
 			//   (semitone index) + (length fraction) * 256
 			//
 			// semitone index is: 1 (C0)... 48 (A4)... 111 (B9)
 			
-			freq = 440 * Math.pow(2, ((track[i] % 256) - 48) / 12);
-			b = Math.floor(track[i] / 256);
-			if (b == 0)
-			{
-				b = default_length ? default_length / 256 : this.lpb;
+				c = track[i] % 256;
+				b = Math.floor(track[i] / 256);
+				
+				freq = 440 * Math.pow(2, (c - 48) / 12);
+				if (b == 0)
+				{
+					b = default_length ? default_length / 256 : this.lpb;
+				}
+				length = (1 / b) * (60 / this.bpm);
+				
+				if (c != 0)
+				{
+					note = instrument.DoIt(freq, length);
+					for (j=0; j<note.length; j++)
+					{
+						this.samples[current_s + j] += note[j];
+					}
+					note = null;
+				}
+				current_s += Math.floor(length * this.sample_rate);
 			}
-			length = (1 / b) * (60 / this.bpm);
-			
-			note = instrument.DoIt(freq, length);
-			for (j=0; j<note.length; j++)
-			{
-				this.samples[current_s + j] += note[j];
-			}
-			note = null;
-			current_s += Math.floor(length * this.sample_rate);
 		}
 		
 		this.sample_count = Math.max(this.sample_count, current_s);
