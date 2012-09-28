@@ -24,6 +24,24 @@ var gSfxSample = function()
 		}
 	}
 	
+	this.a = function(x)
+	{
+		var b = new Array();
+		var c;
+		
+		for (var i=0; i<this.sample_rate; i++)
+		{
+			c = 0;
+			for (var j=0; j<x; j++)
+			{
+				c += this.samples[(i + j) % this.sample_rate];
+			}
+			b[i] = c/x;
+		}
+		
+		this.samples = b;
+	}
+	
 	this.fn = function(freq, t)
 	{
 		this.position = (this.position + Math.floor(freq / this.base_freq)) % this.sample_rate;
@@ -281,8 +299,8 @@ var gSfxTrack = function(bpm, lpb, beats)
 	this.Crop = function()
 	{
 		// TODO
-		// this.samples = this.samples.splice(0, this.samlpe_count);
-		// this.length = this.samlpe_count / this.sample_rate;
+//		this.samples = this.samples.splice(0, this.samlpe_count);
+//		this.length = this.samlpe_count / this.sample_rate;
 	};
 	
 	this.Play = function()
