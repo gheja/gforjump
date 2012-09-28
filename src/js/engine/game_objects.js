@@ -170,12 +170,20 @@ gGameObjectBladeWall.prototype.onCollide = function(object, direction)
 {
 	if (!object.dead)
 	{
-		if (this.ticks_left == 0)
+		if (
+			(this.rotation == 0 && object.speed_y > 0) ||
+			(this.rotation == 1 && object.speed_x < 0) ||
+			(this.rotation == 2 && object.speed_y < 0) ||
+			(this.rotation == 3 && object.speed_x > 0)
+		)
 		{
-			this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, gGameObjectBlade);
+			if (this.ticks_left == 0)
+			{
+				this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, gGameObjectBlade);
+			}
+			this.ticks_left = 10;
+			object.Kill();
 		}
-		this.ticks_left = 10;
-		object.Kill();
 	}
 	
 	this.onCollideDefault(object, direction);
