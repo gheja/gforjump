@@ -86,6 +86,7 @@ function SfxTestNote(note)
 
 function SfxTestDemo()
 {
+/*
 	var instrument1 = new gSfxInstrument(
 		gSfxOscSquare,
 		0.5, // attack time (sec)
@@ -100,7 +101,7 @@ function SfxTestDemo()
 		0.6, // osc3 freq modulation (optional)
 		0.05  // osc3 volume (optional)
 	);
-	
+*/
 	var track = new gSfxTrack(80, 4, 24); // beats per minute, lines per beat, total beats
 	
 	track.RenderChannel(
@@ -173,7 +174,7 @@ function SfxTestDemo2()
 		0.05  // osc3 volume (optional)
 	);
 	
-	var track = new gSfxTrack(90, 4, 24); // beats per minute, lines per beat, total beats
+	var track = new gSfxTrack(120, 4, 20); // beats per minute, lines per beat, total beats
 	
 	track.RenderChannel(
 		instrument_base,
@@ -202,6 +203,7 @@ function SfxTestDemo2()
 			D3 + Q1,
 			C3 + Q1,
 */
+/*
 			C3, C3, S0,
 			C3, C3, S0,
 			C3+Q2, CS3+Q2, D3+Q2,
@@ -225,6 +227,30 @@ function SfxTestDemo2()
 			E3, E3, S0,
 			E3, E3, S0,
 			G3+Q2, FS3+Q2, F3+Q2,
+*/
+			D4, E4, G4 + Q2,
+			E4 + Q2,
+			
+			D4, E4, F4 + Q2,
+			E4 + Q2,
+			
+			D4, E4, G4 + Q2,
+			E4 + Q2,
+			
+			D4, G4, D4 + Q2,
+			D4 + Q2,
+			
+			D4, E4, G4 + Q2,
+			E4 + Q2,
+			
+			D4, E4, F4 + Q2,
+			E4 + Q2,
+			
+			D4, E4, G4 + Q2,
+			E4 + Q2,
+			
+			D4, G4, D4 + Q2,
+			D4 + Q2,
 		],
 		Q4
 	);
