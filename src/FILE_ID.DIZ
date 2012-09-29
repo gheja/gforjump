@@ -6,3 +6,62 @@
     category:  Gamedev
     party:     Function 2012
 ---------------------------------------
+
+--- after the compo ----------------------------------------------------
+
+    ####    This is my first Gamedev compo entry - it is pure JavaScript
+    ####    and HTML5 with no stored graphics or sounds, all the content
+  ##::%%::  is rendered on page load by the browser.
+  ##::%%::  
+  ##::::::  The game  started  as a proof of concept  game engine,  I've
+  ##::::::  been experiencing  with the JS  and HTML5 canvas and thought
+    ::      it would be nice to have a little something that can be used
+    ::      to create a simple platformer games.
+    ::::    
+    ::::    Also this is my first use of canvas  for non-hello-world  or
+  ::::::    (really  simple) graph drawing purposes  and the  very first
+  ::::::    synth I created :) Erm...  about the  synth thing:  it's not
+    ::::    fully a synth.  It has several synth-like parameters  -  the
+    ::::    ADSR envelope, three oscillator sources (the primary and the
+    ::  ::                         two others with freq modulation, con-
+    ::  ::  yes, he is walking :)  figurable sources, volumes), but  has
+                                   some trackerish paramters,  too -  it
+renders  the osc outputs  to samples and uses them instead of  the oscs.
+(The reason is simple:  I wanted to have the chiptuneish frequency modu-
+lation effect, but  with oscs I was unable to create that.  This was the
+solution I came up with.)
+
+The project started from scratch 10 days ago (git repository was created
+afterwards). I have created the levels 1-3 in the  morning of the compo,
+(slept, went to work, and afterwards) started to configure the  "instru-
+ments" and create the tracks 40 minutes before deadline :D I thought the
+""music"" (with those quote marks) was horrible, but at least I gave the
+synth  a meaning. I sent the entry 48 seconds before the deadline  (last
+seconds are the best seconds), I was really surprised after the  presen-
+tation of the game when someone whistled the tune - it was a small thing
+and maybe just sarcasm, but felt really great.
+
+Also the game  was called simply "g" (as the abbrevaion  of "game"), now
+it is called "g for jump", I am not sure if this is better or worse.
+
+And I was aware a few bugs that  I had not enough time to fix,  but Zoom
+found one more while  he was playing  on the bigscreen.  (Thanks for the
+play once again, Zoom!)
+
+Anyways, all the sources are now available on GitHub at
+  http://github.com/gheja/g_for_jump/
+please feel free to examine,  dissect,  extend, play with it, or do any-
+thing you just want. I encourage you to edit src/js/data/game_data.js to
+create your own levels!
+
+Greetings to everyone at Funciton 2012!
+
+I  have used one library:  the RIFFWAVE.js to convert an array  of sound
+samples to "data:audio/wav;base64,..."  URL that can be given to HTML5's
+<audio> element to play. See: http://codebase.es/riffwave/riffwave.js
+
+m00!
+(aka. kakaopor)
+
+------------------------------------------------------------------------
+
