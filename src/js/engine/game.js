@@ -1,4 +1,4 @@
-var gGameObject = function(gfx_element_id)
+var O = function(gfx_element_id)
 {
 	this.pos_x = 0;
 	this.pos_y = 0;
@@ -25,19 +25,19 @@ var gGameObject = function(gfx_element_id)
 	return this;
 };
 
-gGameObject.prototype.Resize = function()
+O.prototype.Resize = function()
 {
 	var e = gGfx.GetElementParameters(this.gfx_element_id);
 	this.width = e.width;
 	this.height = e.height;
 }
 
-gGameObject.prototype.Kill = function()
+O.prototype.Kill = function()
 {
 	this.dead = 1;
 }
 
-gGameObject.prototype.onCollideDefault = function(object, direction)
+O.prototype.onCollideDefault = function(object, direction)
 {
 	//  the ... side of "object" hit "this"
 	switch (direction)
@@ -64,12 +64,12 @@ gGameObject.prototype.onCollideDefault = function(object, direction)
 	}
 }
 
-gGameObject.prototype.onCollide = function(object, direction)
+O.prototype.onCollide = function(object, direction)
 {
 	this.onCollideDefault(object, direction);
 }
 
-gGameObject.prototype.UpdateDynamicValues = function(objects)
+O.prototype.UpdateDynamicValues = function(objects)
 {
 	if (this.gravity_enabled)
 	{
@@ -132,7 +132,7 @@ gGameObject.prototype.UpdateDynamicValues = function(objects)
 	this.pos_y += this.speed_y;
 }
 
-gGameObject.prototype.DefaultTick = function(objects)
+O.prototype.DefaultTick = function(objects)
 {
 	if (this.can_move)
 	{
@@ -140,7 +140,7 @@ gGameObject.prototype.DefaultTick = function(objects)
 	}
 }
 
-gGameObject.prototype.Tick = function(objects)
+O.prototype.Tick = function(objects)
 {
 	this.DefaultTick(objects);
 }

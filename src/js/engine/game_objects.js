@@ -1,4 +1,4 @@
-var gGameObjectPlayer = function()
+var OPlayer = function()
 {
 	this.gfx_element_id = "p0";
 	this.can_move = 1;
@@ -6,16 +6,16 @@ var gGameObjectPlayer = function()
 	this.ticks = 0;
 	return this;
 }
-gGameObjectPlayer.prototype =  new gGameObject();
-gGameObjectPlayer.prototype.onCollide = function(object, direction)
+OPlayer.prototype =  new O();
+OPlayer.prototype.onCollide = function(object, direction)
 {
-	if (object instanceof gGameObjectPlayerCorpse)
+	if (object instanceof OPlayerCorpse)
 	{
 		return;
 	}
 	this.onCollideDefault(object, direction);
 }
-gGameObjectPlayer.prototype.Restart = function()
+OPlayer.prototype.Restart = function()
 {
 	this.pos_x = this.start_pos_x;
 	this.pos_y = this.start_pos_y;
@@ -25,7 +25,7 @@ gGameObjectPlayer.prototype.Restart = function()
 	this.can_move = 1;
 	this.gfx_element_id = "p0";
 }
-gGameObjectPlayer.prototype.Kill = function(no_corpse)
+OPlayer.prototype.Kill = function(no_corpse)
 {
 	if (this.dead)
 	{
@@ -38,13 +38,13 @@ gGameObjectPlayer.prototype.Kill = function(no_corpse)
 		this.speed_x = 0;
 		this.can_move = 0;
 		this.gfx_element_id = ".";
-		var x = gGame.AddGameObject(this.pos_x, this.pos_y, gGameObjectPlayerCorpse);
+		var x = gGame.AddGameObject(this.pos_x, this.pos_y, OPlayerCorpse);
 		x.speed_y = this.speed_y;
 	}
 	
 	gGame.SetStatus(1); // just died
 }
-gGameObjectPlayer.prototype.Tick = function(objects)
+OPlayer.prototype.Tick = function(objects)
 {
 	if (!this.dead)
 	{
@@ -88,50 +88,50 @@ gGameObjectPlayer.prototype.Tick = function(objects)
 
 
 
-var gGameObjectPlayerCorpse = function()
+var OPlayerCorpse = function()
 {
 	this.can_move = 1;
 	this.gravity_enabled = 1;
 	this.gfx_element_id = 6;
 	return this;
 }
-gGameObjectPlayerCorpse.prototype = new gGameObject();
-gGameObjectPlayerCorpse.prototype.onCollide = function(object, direction)
+OPlayerCorpse.prototype = new O();
+OPlayerCorpse.prototype.onCollide = function(object, direction)
 {
 	return;
 }
 
 
 
-var gGameObjectWall = function()
+var OWall = function()
 {
 	this.gfx_element_id = 0;
 	return this;
 }
-gGameObjectWall.prototype = new gGameObject();
+OWall.prototype = new O();
 
 
 
-var gGameObjectBladeBox = function()
+var OBladeBox = function()
 {
 	this.gfx_element_id = 3;
 	this.ticks_left = 0;
 	this.blades = [];
 	return this;
 }
-gGameObjectBladeBox.prototype = new gGameObject();
-gGameObjectBladeBox.prototype.onCollide = function(object, direction)
+OBladeBox.prototype = new O();
+OBladeBox.prototype.onCollide = function(object, direction)
 {
 	if (!object.dead)
 	{
 		if (this.ticks_left == 0)
 		{
-			this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, gGameObjectBlade);
-			this.blades[1] = gGame.AddGameObject(this.pos_x+8, this.pos_y,   gGameObjectBlade);
+			this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, OBlade);
+			this.blades[1] = gGame.AddGameObject(this.pos_x+8, this.pos_y,   OBlade);
 			this.blades[1].rotation = 1;
-			this.blades[2] = gGame.AddGameObject(this.pos_x,   this.pos_y+8, gGameObjectBlade);
+			this.blades[2] = gGame.AddGameObject(this.pos_x,   this.pos_y+8, OBlade);
 			this.blades[2].rotation = 2;
-			this.blades[3] = gGame.AddGameObject(this.pos_x-8, this.pos_y,   gGameObjectBlade);
+			this.blades[3] = gGame.AddGameObject(this.pos_x-8, this.pos_y,   OBlade);
 			this.blades[3].rotation = 3;
 		}
 		this.gfx_element_id = 8;
@@ -141,7 +141,7 @@ gGameObjectBladeBox.prototype.onCollide = function(object, direction)
 	
 	this.onCollideDefault(object, direction);
 }
-gGameObjectBladeBox.prototype.Tick = function(objects)
+OBladeBox.prototype.Tick = function(objects)
 {
 	if (this.ticks_left > 0)
 	{
@@ -158,15 +158,15 @@ gGameObjectBladeBox.prototype.Tick = function(objects)
 	this.DefaultTick(objects);
 }
 
-var gGameObjectBladeWall = function()
+var OBladeWall = function()
 {
 	this.gfx_element_id = 1;
 	this.ticks_left = 0;
 	this.blades = [];
 	return this;
 }
-gGameObjectBladeWall.prototype = new gGameObject();
-gGameObjectBladeWall.prototype.onCollide = function(object, direction)
+OBladeWall.prototype = new O();
+OBladeWall.prototype.onCollide = function(object, direction)
 {
 	if (!object.dead)
 	{
@@ -179,7 +179,7 @@ gGameObjectBladeWall.prototype.onCollide = function(object, direction)
 		{
 			if (this.ticks_left == 0)
 			{
-				this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, gGameObjectBlade);
+				this.blades[0] = gGame.AddGameObject(this.pos_x,   this.pos_y-8, OBlade);
 			}
 			this.ticks_left = 10;
 			object.Kill();
@@ -188,7 +188,7 @@ gGameObjectBladeWall.prototype.onCollide = function(object, direction)
 	
 	this.onCollideDefault(object, direction);
 }
-gGameObjectBladeWall.prototype.Tick = function(objects)
+OBladeWall.prototype.Tick = function(objects)
 {
 	if (this.ticks_left > 0)
 	{
@@ -201,15 +201,15 @@ gGameObjectBladeWall.prototype.Tick = function(objects)
 	this.DefaultTick(objects);
 }
 
-var gGameObjectJumpWall = function()
+var OJumpWall = function()
 {
 	this.gfx_element_id = 7;
 	this.ticks_left = 0;
 	this.blades = [];
 	return this;
 }
-gGameObjectJumpWall.prototype = new gGameObject();
-gGameObjectJumpWall.prototype.onCollide = function(object, direction)
+OJumpWall.prototype = new O();
+OJumpWall.prototype.onCollide = function(object, direction)
 {
 	if (!object.dead)
 	{
@@ -220,26 +220,26 @@ gGameObjectJumpWall.prototype.onCollide = function(object, direction)
 }
 
 
-var gGameObjectBorder = function()
+var OBorder = function()
 {
 	this.gfx_element_id = 5;
 	return this;
 }
-gGameObjectBorder.prototype = new gGameObject();
-gGameObjectBorder.prototype.onCollide = function(object, direction)
+OBorder.prototype = new O();
+OBorder.prototype.onCollide = function(object, direction)
 {
 	object.Kill(true);
 //	this.onCollideDefault(object, direction);
 }
 
 
-var gGameObjectBlade = function()
+var OBlade = function()
 {
 	this.gfx_element_id = 4;
 	return this;
 }
-gGameObjectBlade.prototype = new gGameObject();
-gGameObjectBlade.prototype.onCollide = function(object, direction)
+OBlade.prototype = new O();
+OBlade.prototype.onCollide = function(object, direction)
 {
 	if (
 		(this.rotation == 0 && object.speed_y > 0) ||
@@ -253,13 +253,13 @@ gGameObjectBlade.prototype.onCollide = function(object, direction)
 }
 
 
-var gGameObjectWallFalling = function()
+var OWallFalling = function()
 {
 	this.gfx_element_id = 9;
 	return this;
 }
-gGameObjectWallFalling.prototype = new gGameObject();
-gGameObjectWallFalling.prototype.onCollide = function(object, direction)
+OWallFalling.prototype = new O();
+OWallFalling.prototype.onCollide = function(object, direction)
 {
 	this.can_move = 1;
 	this.gravity_enabled = 1;
@@ -267,15 +267,15 @@ gGameObjectWallFalling.prototype.onCollide = function(object, direction)
 }
 
 
-var gGameObjectLevelFlag = function()
+var OLevelFlag = function()
 {
 	this.gfx_element_id = 10;
 	return this;
 }
-gGameObjectLevelFlag.prototype = new gGameObject();
-gGameObjectLevelFlag.prototype.onCollide = function(object, direction)
+OLevelFlag.prototype = new O();
+OLevelFlag.prototype.onCollide = function(object, direction)
 {
-	if (object instanceof gGameObjectPlayer)
+	if (object instanceof OPlayer)
 	{
 		object.can_move = 0;
 		object.speed_x = 0;
