@@ -463,6 +463,6 @@ var gGame = {
 		{
 			gGfx.Fade(this.fade_percent, this.fade_color);
 		}
-		gGfx.RenderStatus(this.FormatTime(this.time), this.ZeroPad(this.deaths), "L" + this.ZeroPad(this.level, 4));
+		gGfx.RenderStatus(this.FormatTime(this.time), this.ZeroPad(this.deaths), this.ZeroPad(this.level, 4));
 	}
 };

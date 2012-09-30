@@ -157,33 +157,19 @@ var gGfx = {
 		return this.element_parameters[id];
 	},
 	
+	RenderString: function(s, x, y)
+	{
+		for (var i=0; i<s.length; i++)
+		{
+			gGfx.Draw("d" + s[i], i * 5 + x, y);
+		}
+	},
+	
 	RenderStatus: function(time, deaths, level)
 	{
-		/* TODO: move these outside of the function to make them static */
-		var cv = document.createElement('canvas');
-		cv.width = this.width;
-		cv.height = 20;
-		
-		var ctx = cv.getContext('2d');
-		ctx.fillStyle = "#fff";
-		ctx.font = "10px Tahoma bold";
-		ctx.fillText(time, 1, 8);
-		ctx.fillText(deaths, this.width - 60, 8);
-		ctx.fillText(level, this.width - 20, 8);
-		
-		var data = ctx.getImageData(0, 0, this.width, 20).data;
-		
-		gGfx.context.fillStyle = "#fff";
-		for (var i = 0; i < 20; i++)
-		{
-			for (var j = 0; j < this.width; j++)
-			{
-				if (data[(i * this.width + j) * 4] > 128)
-				{
-					gGfx.context.fillRect(j * gGfx.scale, i * gGfx.scale, gGfx.scale, gGfx.scale);
-				}
-			}
-		}
+		gGfx.RenderString(time, 1, 1);
+		gGfx.RenderString(deaths, gGfx.width - 60, 1);
+		gGfx.RenderString(level, gGfx.width - 20, 1);
 	},
 	
 	Fade: function(percent, color)
