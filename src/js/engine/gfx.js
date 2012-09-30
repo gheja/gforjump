@@ -159,9 +159,11 @@ var gGfx = {
 	
 	RenderString: function(s, x, y)
 	{
+		var d = x;
 		for (var i=0; i<s.length; i++)
 		{
-			gGfx.Draw("d" + s[i], i * 5 + x, y);
+			gGfx.Draw("d" + s[i], d, y);
+			d += gGfx.element_parameters["d" + s[i]].width + 1;
 		}
 	},
 	
