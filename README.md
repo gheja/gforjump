@@ -5,3 +5,4 @@ For the version released at [Function 2012](http://2012.function.hu/) see the [f
 
 [FILE_ID.DIZ for Function 2012](https://github.com/gheja/gforjump/blob/function2012/src/FILE_ID.DIZ) is now extended with "after the compo" section.
 
+For the most recent nightly copy of the code see: http://gforjump.x0.hu/nightly
