@@ -1,7 +1,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>g</title>
+		<title>g / editor</title>
 		<style type="text/css">
 			body
 			{
@@ -120,34 +120,34 @@
 					Notes about the editor:
 				</p>
 				<ul>
-					<li>All edits you made is performed only in your browser they <strong>will not be saved</strong>, you should copy the contents occasionally to not lose all your changes if something goes wrong (i.e. you reload the page, your browser crashes, etc.)</li>
+					<li>All edits you make are performed only in your browser, they <strong>will not be saved</strong>, you should copy the contents occasionally to not lose all your changes if something goes wrong (i.e. you reload the page or your browser crashes).</li>
 					<li>The objects are mostly 8x8 pixels in size.</li>
-					<li>First object must be the player - this is a dumb restriction, I know.</li>
-					<li>The objects of the level are in an array.</li>
-					<li>The items in the array are the followings:
+					<li>The objects of the level are defined by arrays.</li>
+					<li>The items in the arrays are the followings:
 						<ul>
-							<li>horizontal position (pixels)</li>
-							<li>vertical position (pixels)</li>
-							<li>class name of the object</li>
-							<li>how many of this object should be placed horizontally (optional, defaults to 1)</li>
-							<li>how many of this object should be placed vertically (optional, defaults to 1)</li>
-							<li>extra object properties (optional, defaults to none)</li>
+							<li>horizontal position (pixels),</li>
+							<li>vertical position (pixels),</li>
+							<li>class name of the object,</li>
+							<li>how many of this object should be placed horizontally (optional, defaults to 1),</li>
+							<li>how many of this object should be placed vertically (optional, defaults to 1),</li>
+							<li>extra object properties (optional, defaults to none).</li>
 						</ul>
 					</li>
 					<li>Valid object class names are:
 						<ul>
-							<li>gGameObjectPlayer - the player</li>
-							<li>gGameObjectWall - a block of wall</li>
-							<li>gGameObjectBlade - the blade (you can rotate it!)</li>
-							<li>gGameObjectBladeWall - "it's a trap!"</li>
-							<li>gGameObjectBladeBox - surprise! ^^</li>
-							<li>gGameObjectJumpWall - a block of wall that makes you jump</li>
-							<li>gGameObjectBorder - the line, don't cross it</li>
-							<li>gGameObjectLevelFlag - teleports you to the "next_level" object property level</li>
+							<li>gGameObjectPlayer - the player,</li>
+							<li>gGameObjectWall - a block of wall,</li>
+							<li>gGameObjectBlade - the blade (you can rotate it!),</li>
+							<li>gGameObjectBladeWall - "it's a trap!",</li>
+							<li>gGameObjectBladeBox - surprise! ^^,</li>
+							<li>gGameObjectJumpWall - a block of wall that makes you jump,</li>
+							<li>gGameObjectBorder - the line, don't cross it,</li>
+							<li>gGameObjectLevelFlag - teleports you to the "next_level" object property level,</li>
 							<li>... you can add more by editing js/engine/game_objects.js :)</li>
 						</ul>
 					</li>
 					<li>Object properties include "rotation" which rotates the object (no shit, Sherlock!). It comes handy (and fun) when you use the blades.</li>
+					<li>First object must be the player - this is a dumb restriction, I know.</li>
 					<li>Did you know: the blades will kill you only if you meet their tip - otherwise you can safely pass by them.</li>
 				</ul>
 				
