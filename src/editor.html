@@ -1,0 +1,171 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>g</title>
+		<style type="text/css">
+			body
+			{
+				background: #111111;
+				margin: 0;
+				padding: 0;
+				color: #ffffff;
+				font-family: Tahoma;
+				font-size: 9pt;
+			}
+			div#content
+			{
+				text-align: center;
+				width: 640px;
+				margin: 40px auto;
+				display: block;
+			}
+			
+			div#content textarea
+			{
+				width: 100%;
+				height: 200px;
+				font-size: 8pt;
+			}
+			
+			hr
+			{
+				border-top: 1px dashed #000000;
+				border-right: none;
+				border-bottom: 1px dashed #333333;
+				border-left: none;
+				padding: 0;
+				margin: 20px 0 20px 0;
+			}
+			
+			a,
+			a:visited,
+			a:active
+			{
+				color: #0077ff;
+				text-decoration: none;
+			}
+			
+			a:hover
+			{
+				color: #ffffff;
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/engine/gfx.js" type="text/javascript"></script>
+		<script src="js/engine/sfx_riffwave.js" type="text/javascript"></script>
+		<script src="js/engine/sfx_notes.js" type="text/javascript"></script>
+		<script src="js/engine/sfx.js" type="text/javascript"></script>
+		<script src="js/engine/game.js" type="text/javascript"></script>
+		<script src="js/engine/game_objects.js" type="text/javascript"></script>
+		
+		<script src="js/data/game_data.js" type="text/javascript"></script>
+		<script src="js/data/sfx_data.js" type="text/javascript"></script>
+		
+		<script type="text/javascript">
+			function replace_level()
+			{
+				if (!gGame.ReplaceLevelWithCode(document.getElementById('level_code').value))
+				{
+					alert("Could not replace level with code.");
+				}
+			}
+		</script>
+		
+		<div id="content">
+			<canvas id="canvas0" width="640" height="480"></canvas>
+			
+			<p><b>Arrow keys</b>: move | <b>Shift</b>: run | <b>Space</b>: jump | <b>M</b>: mute | <b>Fun</b>: have some :)</p>
+			
+			<hr/>
+			
+			<p>Things you edit here <span style="color: #dd0000; font-weight: bold;">will not be saved</span>, see more notes below the editor.</p>
+			
+			<textarea id="level_code" onfocus="gGameInput.Detach();" onblur="gGameInput.Attach();">
+// pos_x, pos_y, game_object, count_x, count_y, extra properties
+
+[   0,    0,  gGameObjectPlayer, 1, 1, { start_pos_x: 8, start_pos_y: 96 } ],
+
+[  -8,  112, gGameObjectWall, 7, 1 ],
+[  64,   96, gGameObjectWall, 2, 1 ],
+[  24,   88, gGameObjectWall, 2, 1 ],
+[   0,   80, gGameObjectWall, 4, 1 ],
+[   0,   56, gGameObjectWall, 1, 3 ],
+[  -24,  56, gGameObjectWall, 3, 1 ],
+[  -16,  32, gGameObjectBladeBox ],
+
+[  16,   48, gGameObjectWall, 2, 1 ],
+[  16,   56, gGameObjectBlade, 1, 1, { rotation: 2 } ],
+[  32,   48, gGameObjectBladeWall, 2, 1 ],
+[  48,   48, gGameObjectWall, 4, 1 ],
+
+[  80,   48, gGameObjectWall, 1, 11 ],
+[  88,  128, gGameObjectJumpWall ],
+[  96,   48, gGameObjectWall, 1, 11 ],
+[  104,  48, gGameObjectWall ],
+
+[  56,   16, gGameObjectWall, 4, 1 ],
+[  64,  8, gGameObjectLevelFlag, 1, 1, { next_level: 3 } ],
+
+[ -64,  152, gGameObjectBorder, 100, 1 ]
+</textarea>
+			
+			<p><a href="#" onclick="replace_level(); return false;">Update level</a></p>
+			
+			<hr/>
+			
+			<div style="text-align: left;">
+				<p>
+					Notes about the editor:
+				</p>
+				<ul>
+					<li>All edits you made is performed only in your browser they <strong>will not be saved</strong>, you should copy the contents occasionally to not lose all your changes if something goes wrong (i.e. you reload the page, your browser crashes, etc.)</li>
+					<li>The objects are mostly 8x8 pixels in size.</li>
+					<li>First object must be the player - this is a dumb restriction, I know.</li>
+					<li>The objects of the level are in an array.</li>
+					<li>The items in the array are the followings:
+						<ul>
+							<li>horizontal position (pixels)</li>
+							<li>vertical position (pixels)</li>
+							<li>class name of the object</li>
+							<li>how many of this object should be placed horizontally (optional, defaults to 1)</li>
+							<li>how many of this object should be placed vertically (optional, defaults to 1)</li>
+							<li>extra object properties (optional, defaults to none)</li>
+						</ul>
+					</li>
+					<li>Valid object class names are:
+						<ul>
+							<li>gGameObjectPlayer - the player</li>
+							<li>gGameObjectWall - a block of wall</li>
+							<li>gGameObjectBlade - the blade (you can rotate it!)</li>
+							<li>gGameObjectBladeWall - "it's a trap!"</li>
+							<li>gGameObjectBladeBox - surprise! ^^</li>
+							<li>gGameObjectJumpWall - a block of wall that makes you jump</li>
+							<li>gGameObjectBorder - the line, don't cross it</li>
+							<li>gGameObjectLevelFlag - teleports you to the "next_level" object property level</li>
+							<li>... you can add more by editing js/engine/game_objects.js :)</li>
+						</ul>
+					</li>
+					<li>Object properties include "rotation" which rotates the object (no shit, Sherlock). It comes handy (and fun) when you use the blades.</li>
+					<li>Did you know: the blades will kill you only if you meet its sharp edges - you can safely pass by them.</li>
+				</ul>
+				<!-- <a href="#" onclick="this.parentNode.style.display='none'; return false;">Got it, hide these notes.</a> -->
+			</div>
+			
+			<hr/>
+			
+			<p>This project is on GitHub: <a href="http://github.com/gheja/gforjump">http://github.com/gheja/gforjump</a></p>
+		</div>
+		
+		<script type="text/javascript">
+			window.onload = function()
+			{
+				gGame.Init("canvas0", g_game_settings, g_levels);
+				gGame.Run();
+				replace_level();
+				// sfx_render_and_play();
+			}
+		</script>
+	</body>
+</html>
