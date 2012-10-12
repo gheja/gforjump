@@ -287,7 +287,7 @@ var gSfxTrack = function(bpm, lpb, beats)
 	
 	this.Play = function()
 	{
-		this.audio_obj.loop = 1;
+		this.audio_obj.loop = 0;
 		this.audio_obj.play();
 	};
 	
