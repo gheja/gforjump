@@ -282,6 +282,8 @@ var gGame = {
 			this.AddGameObject(a[i][0], a[i][1], a[i][2], a[i][3], a[i][4], a[i][5]);
 		}
 		
+		this.level_title = data.title;
+		
 		this.RestartLevel();
 	},
 	
@@ -297,6 +299,7 @@ var gGame = {
 		}
 		
 		this.levels["code"] = {
+			title: "(code)",
 			gfx_palette: _gfx_palette,
 			gfx_elements: _gfx_elements,
 			gfx_backgrounds: _gfx_backgrounds,
@@ -487,6 +490,6 @@ var gGame = {
 		{
 			gGfx.Fade(this.fade_percent, this.fade_color);
 		}
-		gGfx.RenderStatus(this.FormatTime(this.time), this.ZeroPad(this.deaths), this.ZeroPad(this.level, 4));
+		gGfx.RenderStatus(this.FormatTime(this.time), this.ZeroPad(this.deaths), this.level_title);
 	}
 };

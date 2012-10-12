@@ -100,6 +100,8 @@ var _gfx_backgrounds = {
 
 var g_levels = {
 	1: {
+		title: "warm up",
+		
 		gfx_palette: _gfx_palette,
 		gfx_elements: _gfx_elements,
 		gfx_backgrounds: _gfx_backgrounds,
@@ -129,6 +131,8 @@ var g_levels = {
 	},
 	
 	2: {
+		title: "curious?",
+		
 		gfx_palette: _gfx_palette,
 		gfx_elements: _gfx_elements,
 		gfx_backgrounds: _gfx_backgrounds,
@@ -164,6 +168,8 @@ var g_levels = {
 	},
 	
 	3: {
+		title: "getting tricky",
+		
 		gfx_palette: _gfx_palette,
 		gfx_elements: _gfx_elements,
 		gfx_backgrounds: _gfx_backgrounds,
@@ -203,6 +209,8 @@ var g_levels = {
 	},
 	
 	4: {
+		title: "no. four",
+		
 		gfx_palette: _gfx_palette,
 		gfx_elements: _gfx_elements,
 		gfx_backgrounds: _gfx_backgrounds,
@@ -224,6 +232,8 @@ var g_levels = {
 	
 	
 	"test": {
+		title: "test",
+		
 		gfx_palette: _gfx_palette,
 		gfx_elements: _gfx_elements,
 		gfx_backgrounds: _gfx_backgrounds,

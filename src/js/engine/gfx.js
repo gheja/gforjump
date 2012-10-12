@@ -169,9 +169,8 @@ var gGfx = {
 	
 	RenderStatus: function(time, deaths, level)
 	{
-		gGfx.RenderString(time, 1, 1);
-		gGfx.RenderString(deaths, gGfx.width - 60, 1);
-		gGfx.RenderString(level, gGfx.width - 20, 1);
+		gGfx.RenderString(time + " " + level, 1, 1);
+		gGfx.RenderString(deaths, gGfx.width - deaths.length * 5, 1);
 	},
 	
 	Fade: function(percent, color)
