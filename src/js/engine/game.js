@@ -285,6 +285,30 @@ var gGame = {
 		this.RestartLevel();
 	},
 	
+	ReplaceLevelWithCode: function(level_code)
+	{
+		try
+		{
+			var objects = eval("[" + level_code + "]");
+		}
+		catch (e)
+		{
+			return false;
+		}
+		
+		this.levels["code"] = {
+			gfx_palette: _gfx_palette,
+			gfx_elements: _gfx_elements,
+			gfx_backgrounds: _gfx_backgrounds,
+			game_objects: objects
+		};
+		
+		this.DestroyLevel();
+		this.InitLevel("code");
+		
+		return true;
+	},
+	
 	Init: function(canvas, settings, levels)
 	{
 		gGfx.Init(canvas, settings.width, settings.height, settings.scale);
